@@ -22,4 +22,4 @@
       request.send(null);
     });
   };
-});
+})();
