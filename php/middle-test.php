@@ -1,6 +1,7 @@
 <?php 
 echo json_encode(array(
   "njit" => false,
-  "backend" => true
+  "backend" => true,
+  "fruit" => $_GET["fruit"]
 ));
 ?>
