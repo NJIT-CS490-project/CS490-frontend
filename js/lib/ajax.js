@@ -10,10 +10,14 @@
       .slice(0, -1);
   };
 
-  root.get = function(url) {
+  root.get = function(url, params) {
+    var parameterizedUrl = (params)
+      ? url + toParameterString(params)
+      : url;
+
     return new Promise(function(fulfill, reject) {
       var request = new XMLHttpRequest();
-      request.open('GET', url, true);
+      request.open('GET', parameterizedUrl, true);
 
       request.addEventListener('load', function() {
         if (request.status < 400) {
