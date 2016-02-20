@@ -2,6 +2,14 @@
   window.ajax = window.ajax || {};
   var root = window.ajax;
 
+  var toParameterString = function(obj) {
+    return Object.keys(obj)
+      .reduce(function(prev, current) {
+        return prev + current + '=' + obj[current] + '&';
+      }, '?')
+      .slice(0, -1);
+  };
+
   root.get = function(url) {
     return new Promise(function(fulfill, reject) {
       var request = new XMLHttpRequest();
