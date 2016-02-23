@@ -11,4 +11,6 @@ curl_setopt($cr, CURLOPT_POSTFIELDS, $json);
 curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
 
 $request = curl_exec($cr);
+
+echo $request;
 ?>
