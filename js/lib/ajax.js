@@ -1,6 +1,6 @@
 (function() {
-  window.ajax = window.ajax || {};
-  var root = window.ajax;
+  window.lib = window.lib || {};
+  var root = window.lib.ajax;
 
   var toParameterString = function(obj) {
     return Object.keys(obj)
