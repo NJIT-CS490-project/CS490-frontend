@@ -1,5 +1,6 @@
 (function() {
   window.lib = window.lib || {};
+  window.lib.ajax = {};
   var root = window.lib.ajax;
 
   var toParameterString = function(obj) {
