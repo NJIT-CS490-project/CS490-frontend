@@ -11,4 +11,15 @@
     }
     return obj;
   };
+
+  root.filled = obj => {
+    return new Promise((fulfill, reject) => {
+      const filled = Object.keys(obj)
+      .map(key => obj[key])
+      .every(value => value);
+
+      if (filled) fulfill(obj);
+      else reject(new Error('Form is not filled'));
+    });
+  };
 })();
