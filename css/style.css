@@ -63,8 +63,10 @@ html {
 }
 
 #loginContainer input:last-child {
+  color: white;
   border-bottom: var(--primary-color) 1px solid;
   border-radius: 0 0 var(--border-radius) 0;
+  background-color: var(--primary-color);
   transition: none !important;
   cursor: pointer;
 }
