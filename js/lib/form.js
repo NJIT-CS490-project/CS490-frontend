@@ -7,7 +7,7 @@
     const formData = new FormData(form);
     let obj = {};
     for (let pair of formData.entries()) {
-      if (pair[1]) obj[pair[0]] = pair[1];
+      obj[pair[0]] = pair[1];
     }
     return obj;
   };
