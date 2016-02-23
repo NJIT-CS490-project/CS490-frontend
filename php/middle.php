@@ -13,8 +13,5 @@ curl_setopt($cr, CURLOPT_HTTPHEADER, array("Content-type: application/json"));
 
 $request = curl_exec($cr);
 
-$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-error_log($status);
-
 echo $request;
 ?>
