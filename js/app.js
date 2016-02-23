@@ -1,6 +1,6 @@
 (function() {
-  const form = document.getElementById("login");
-  form.addEventListener("submit", function(event) {
+  const form = document.getElementById('login');
+  form.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const params = window.lib.form.getFormEntries(form);
