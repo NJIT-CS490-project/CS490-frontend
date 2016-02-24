@@ -96,7 +96,8 @@ html {
 
 .slider {
   height: 100%;
-  width: 10%;
+  width: 15%;
+  min-width: 7em;
   position: relative;
 
   font-family: arial;
