@@ -19,7 +19,7 @@
       .every(value => value);
 
       if (filled) fulfill(obj);
-      else reject(new Error('Form is not filled'));
+      else reject(new window.lib.error.FormValidationError('Form is not filled'));
     });
   };
 })();
