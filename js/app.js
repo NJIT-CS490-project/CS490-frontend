@@ -1,5 +1,13 @@
 (function() {
   const form = document.getElementById('login');
+
+  Array.from(form.querySelectorAll('input'))
+  .forEach(element => {
+    element.addEventListener('input', function() {
+      window.lib.element.removeClass(element, 'empty-input');
+    });
+  });
+
   form.addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -12,10 +20,6 @@
       .catch(err => {
         if (err.name !== 'FormValidationError') return err;
         Array.from(form.children)
-          .map(element => {
-            element.className = element.className.replace('empty-input', '');
-            return element;
-          })
           .filter(inputElement => !inputElement.textLength)
           .forEach(element => {
             element.className += ' empty-input';
