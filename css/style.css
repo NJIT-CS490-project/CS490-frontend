@@ -29,6 +29,7 @@
 html {
   background-color: var(--page-color);
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 
