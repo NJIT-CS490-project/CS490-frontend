@@ -7,9 +7,13 @@
   --page-color: #d9d9d9;
   --primary-color: #fa8072;
   --primary-highlight-color: #faa9a0;
+  --shadow-color: #aaa;
+
   --transition-speed: .25s;
   --border-radius: 30px;
-  --shadow-color: #aaa;
+
+  --success-color: #4FFF52;
+  --failure-color: #ff2e2e;
 }
 
 * {
