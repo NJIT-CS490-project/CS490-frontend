@@ -1,6 +1,6 @@
 (function() {
   window.lib = window.lib || {};
-  window.lib.ajax = {};
+  window.lib.element = {};
   var root = window.lib.element;
 
   root.removeClass = (element, className) => {
