@@ -84,3 +84,8 @@ html {
 #loginContainer input::-moz-focus-inner {
   border: 0;
 }
+
+
+.empty-input {
+  box-shadow: inset 0px 0px 5px red;
+}
