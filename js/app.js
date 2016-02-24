@@ -1,8 +1,8 @@
 (function() {
   const toggleExclusiveClass = (predicate, element, successClass, failClass) => {
-    if (prediacate === true) window.lib.element.replaceClass(element, failClass, successClass);
+    if (predicate === true) window.lib.element.replaceClass(element, failClass, successClass);
     else window.lib.element.replaceClass(element, successClass, failClass);
-  }
+  };
 
   const form = document.getElementById('login');
 
