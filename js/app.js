@@ -23,11 +23,12 @@
       .then(params => {
         return window.lib.ajax.get('php/middle.php', params);
       })
-      .then(response => {
-        toggleExclusiveClass(response['njit'], njitSlider, 'bg-success', 'bg-failure');
+      .then(response => JSON.parse(response))
+      .then(responseObj => {
+        toggleExclusiveClass(responseObj['njit'], njitSlider, 'bg-success', 'bg-failure');
         window.lib.element.removeClass(document.querySelector('.slider-left'), 'slider-left-hidden');
 
-        toggleExclusiveClass(response['db'], backendSlider, 'bg-success', 'bg-failure');
+        toggleExclusiveClass(responseObj['db'], backendSlider, 'bg-success', 'bg-failure');
         window.lib.element.removeClass(document.querySelector('.slider-right'), 'slider-right-hidden');
       })
       .then(window.lib.time.delay(3000))
