@@ -5,6 +5,8 @@
   };
 
   const form = document.getElementById('login');
+  const njitSlider = document.getElementById('njitSlider');
+  const backendSlider = document.getElementById('backendSlider');
 
   Array.from(form.querySelectorAll('input'))
   .forEach(element => {
@@ -21,7 +23,18 @@
       .then(params => {
         return window.lib.ajax.get('php/middle.php', params);
       })
-      .then(response => console.log(response))
+      .then(response => {
+        toggleExclusiveClass(response['njit'], njitSlider, 'bg-success', 'bg-failure');
+        window.lib.element.removeClass(document.querySelector('.slider-left'), 'slider-left-hidden');
+
+        toggleExclusiveClass(response['db'], backendSlider, 'bg-success', 'bg-failure');
+        window.lib.element.removeClass(document.querySelector('.slider-right'), 'slider-right-hidden');
+      })
+      .then(window.lib.time.delay(3000))
+      .then(() => {
+        window.lib.element.addClass(document.querySelector('.slider-left'), 'slider-left-hidden');
+        window.lib.element.addClass(document.querySelector('.slider-right'), 'slider-right-hidden');
+      })
       .catch(err => {
         if (err.name !== 'FormValidationError') return err;
         Array.from(form.children)
