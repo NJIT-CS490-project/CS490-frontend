@@ -14,5 +14,10 @@
   "bugs": {
     "url": "https://github.com/NJIT-CS490-project/CS490-frontend/issues"
   },
-  "homepage": "https://github.com/NJIT-CS490-project/CS490-frontend#readme"
+  "homepage": "https://github.com/NJIT-CS490-project/CS490-frontend#readme",
+  "devDependencies": {
+    "eslint-config-airbnb": "^6.1.0",
+    "eslint-plugin-react": "^4.2.2",
+    "eslint": "^2.4.0"
+  }
 }
