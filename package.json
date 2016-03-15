@@ -1,0 +1,18 @@
+{
+  "name": "cs490-frontend",
+  "version": "1.0.0",
+  "description": "Front end for Spring 2016 CS490 project",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NJIT-CS490-project/CS490-frontend.git"
+  },
+  "author": "Nicholas Farley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NJIT-CS490-project/CS490-frontend/issues"
+  },
+  "homepage": "https://github.com/NJIT-CS490-project/CS490-frontend#readme"
+}
