@@ -30,4 +30,9 @@
     EventTarget.addEventListener(eventName, partialPulse);
     return stream;
   };
+
+  exports.log = (stream, tag) => exports.subscribe(stream, value => {
+    const message = `${tag}: ${value}`;
+    console.log(message);
+  });
 }
