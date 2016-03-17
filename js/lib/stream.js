@@ -34,4 +34,13 @@
   exports.log = (stream, tag) => exports.subscribe(stream, value => {
     console.log({ tag, value });
   });
+
+  exports.merge = (streams) => {
+    const newStream = exports.create();
+    const partialPulse = f.partial(exports.pulse, newStream);
+    streams.forEach(stream => {
+      exports.subscribe(stream, partialPulse);
+    });
+    return newStream;
+  };
 }
