@@ -26,4 +26,10 @@
     });
     return newStream;
   };
+
+  exports.fromEvent = (EventTarget, eventName) => {
+    const stream = exports.create();
+    EventTarget.addEventListener(eventName, stream.update);
+    return stream;
+  };
 }
