@@ -6,23 +6,23 @@
   exports.create = () => {
     const observers = [];
 
-    const observe = cb => {
+    const subscribe = cb => {
       observers.push(cb);
     };
 
-    const update = value => {
+    const pulse = value => {
       observers.forEach(cb => {
         cb(value);
       });
     };
 
-    return { observe, update };
+    return { subscribe, pulse };
   };
 
   exports.map = (stream, transform) => {
     const newStream = exports.create();
-    stream.observe((value) => {
-      newStream.update(transform(value));
+    stream.subscribe((value) => {
+      newStream.pulse(transform(value));
     });
     return newStream;
   };
