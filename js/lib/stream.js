@@ -22,7 +22,7 @@
   exports.map = (stream, transform) => {
     const newStream = exports.create();
     stream.observe((value) => {
-      stream.update(transform(value));
+      newStream.update(transform(value));
     });
     return newStream;
   };
