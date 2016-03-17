@@ -32,7 +32,6 @@
   };
 
   exports.log = (stream, tag) => exports.subscribe(stream, value => {
-    const message = `${tag}: ${value}`;
-    console.log(message);
+    console.log({ tag, value });
   });
 }
