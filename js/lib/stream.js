@@ -3,33 +3,31 @@
   window.lib.stream = {};
   const exports = window.lib.stream;
 
-  exports.create = () => {
-    const observers = [];
+  const f = window.lib.f;
 
-    const subscribe = cb => {
-      observers.push(cb);
-    };
+  exports.create = () => [];
 
-    const pulse = value => {
-      observers.forEach(cb => {
-        cb(value);
-      });
-    };
+  exports.pulse = (stream, value) => {
+    stream.forEach(cb => cb(value));
+    return stream;
+  };
 
-    return { subscribe, pulse };
+  exports.subscribe = (stream, cb) => {
+    stream.push(cb);
+    return stream;
   };
 
   exports.map = (stream, transform) => {
     const newStream = exports.create();
-    stream.subscribe((value) => {
-      newStream.pulse(transform(value));
-    });
+    const partialPulse = f.partial(exports.pulse, newStream);
+    exports.subscribe(stream, value => partialPulse(transform(value)));
     return newStream;
   };
 
   exports.fromEvent = (EventTarget, eventName) => {
     const stream = exports.create();
-    EventTarget.addEventListener(eventName, stream.pulse);
+    const partialPulse = f.partial(exports.pulse, stream);
+    EventTarget.addEventListener(eventName, partialPulse);
     return stream;
   };
 }
