@@ -29,7 +29,7 @@
 
   exports.fromEvent = (EventTarget, eventName) => {
     const stream = exports.create();
-    EventTarget.addEventListener(eventName, stream.update);
+    EventTarget.addEventListener(eventName, stream.pulse);
     return stream;
   };
 }
