@@ -5,18 +5,30 @@
 
   const f = window.lib.f;
 
+  /**
+   * @sig [(a -> b)]
+   */
   exports.create = () => [];
 
+  /**
+   * @sig [(a -> b)] -> a -> [(a -> b)]
+   */
   exports.pulse = (stream, value) => {
     stream.forEach(cb => cb(value));
     return stream;
   };
 
+  /**
+   * @sig [(a -> b)] -> (a -> b) -> [(a -> b)]
+   */
   exports.subscribe = (stream, cb) => {
     stream.push(cb);
     return stream;
   };
 
+  /**
+   * @sig [(a -> b)] -> (b -> c) -> [(b -> c)]
+   */
   exports.map = (stream, transform) => {
     const newStream = exports.create();
     const partialPulse = f.partial(exports.pulse, newStream);
@@ -24,6 +36,9 @@
     return newStream;
   };
 
+  /**
+   * @sig EventTarget a => String b => a -> b -> [(c -> d)]
+   */
   exports.fromEvent = (EventTarget, eventName) => {
     const stream = exports.create();
     const partialPulse = f.partial(exports.pulse, stream);
@@ -31,10 +46,16 @@
     return stream;
   };
 
+  /**
+   * @sig String a => [(b -> c)] -> a -> [(b -> c)]
+   */
   exports.log = (stream, tag) => exports.subscribe(stream, value => {
     console.log({ tag, value });
   });
 
+  /**
+   * @sig [[(a -> b)]] -> [(a -> b)]
+   */
   exports.merge = (streams) => {
     const newStream = exports.create();
     const partialPulse = f.partial(exports.pulse, newStream);
