@@ -64,4 +64,15 @@
     });
     return newStream;
   };
+
+  /**
+   * @sig Bool a => [(b -> c)] -> (* -> a) -> [(b -> c)]
+   */
+  exports.filter = (stream, predicate) => {
+    const newStream = exports.create();
+    exports.subscribe(stream, value => {
+      if (predicate(value)) exports.pulse(newStream, value);
+    });
+    return newStream;
+  };
 }
