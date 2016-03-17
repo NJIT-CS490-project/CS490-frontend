@@ -9,5 +9,5 @@
     this.stack = (new Error()).stack;
   };
   exports.FormValidationError.prototype = Object.create(Error.prototype);
-  exports.FormValidationError.prototype.constructor = root.FormValidationError;
+  exports.FormValidationError.prototype.constructor = exports.FormValidationError;
 }
