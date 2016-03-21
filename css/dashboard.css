@@ -29,3 +29,18 @@ nav {
 
   background-color: var(--primary-color);
 }
+
+.event-setting {
+  width: calc(100% - 20px);
+  min-height: 25px;
+
+  margin: 10px auto;
+
+  background-color: var(--secondary-color);
+}
+
+.event-setting h4 {
+  margin: 0;
+  padding: 1ex;
+  color: var(--primary-color);
+}
