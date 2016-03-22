@@ -77,12 +77,10 @@
 }
 
 .nav-button {
-  --button-margin: 10px;
+  margin-right: 10px;
   font-size: large;
-  margin-top: var(--button-margin);
-  margin-right: var(--button-margin);
-  float: right;
   padding: 1.5ex;
+  align-items: center;
 }
 
 .sidebar-button {
@@ -94,7 +92,29 @@
   bottom: 7px;
 }
 
+.profile {
+  display: flex;
+  align-items: center;
+  width: var(--sidebar-width);
+  height: var(--navbar-height);
+  margin: 5px;
+}
+
+.profile img {
+  width: 60px;
+  height: 60px;
+  padding: 1ex;
+}
+
+.profile h2 {
+  color: var(--secondary-color);
+  padding: 1ex;
+}
+
 nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
