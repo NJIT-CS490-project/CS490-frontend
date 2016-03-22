@@ -1,5 +1,5 @@
 :root {
   --primary-color: #63b7cf;
   --secondary-color: white;
-  --shadow-color: #333;
+  --shadow-color: rgba(0, 0, 0, .2);
 }
