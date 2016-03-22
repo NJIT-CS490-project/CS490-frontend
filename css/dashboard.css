@@ -85,6 +85,15 @@
   padding: 1.5ex;
 }
 
+.sidebar-button {
+  font-size: x-large;
+  padding: 1ex;
+  width: calc(var(--sidebar-width) - 15px);
+  position: fixed;
+  left: 7px;
+  bottom: 7px;
+}
+
 nav {
   position: fixed;
   top: 0;
