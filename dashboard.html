@@ -24,7 +24,31 @@
       </section>
       <input class="button sidebar-button primary-color secondary-bg-color" type="button" value="Create Event"></input>
     </section>
-    <section class="hidden overlay create-event">
+    <section class="hidden overlay primary-color secondary-bg-color create-event">
+      <form>
+        <label for="create-title">Title</label>
+        <input class="input-text" id="create-title" type="text" placeholder="Title"></input>
+
+        <label for="create-description">Description</label>
+        <input class="input-text" id="create-description" type="text" placeholder="Description"></input>
+
+        <label for="create-date">Date</label>
+        <input class="input-text" id="create-date" type="date" placeholder="Date"></input>
+
+        <label for="create-start">Start Time</label>
+        <input class="input-text" id="create-start" type="time" placeholder="Start Time"></input>
+
+        <label for="create-end">End Time</label>
+        <input class="input-text" id="create-end" type="time" placeholder="End Time"></input>
+
+        <label for="create-place">Place</label>
+        <input class="input-text" id="create-place" type="text" placeholder="Place"></input>
+
+        <div class="flex">
+          <input class="button form-button secondary-bg-color primary-color" type="button" id="create-cancel" value="Cancel"></input>
+          <input class="button form-button primary-bg-color secondary-color" type="button" id="create-submit" value="Submit"></input>
+        </div>
+      </form>
     </section>
   </body>
 </html>
