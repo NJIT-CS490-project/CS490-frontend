@@ -140,6 +140,8 @@
   box-shadow: 0 0 10px 1000px var(--shadow-color);
 
   border-radius: 20px;
+
+  overflow-y: auto;
 }
 
 nav {
