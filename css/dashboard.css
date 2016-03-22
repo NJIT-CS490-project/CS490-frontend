@@ -115,6 +115,16 @@
   visibility: hidden;
 }
 
+.overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 9999;
+  min-width: 100px;
+  min-height: 100px;
+  box-shadow: 0 0 10px 1000px var(--shadow-color);
+}
+
 nav {
   display: flex;
   justify-content: space-between;
