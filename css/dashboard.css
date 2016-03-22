@@ -32,6 +32,13 @@ nav {
   background-color: var(--primary-color);
 }
 
+.search-bg {
+  background: url(../images/search.png);
+  background-repeat: no-repeat;
+  background-position: 98%;
+  background-size: 3ex;
+}
+
 .event-setting {
   width: calc(100% - 20px);
   min-height: 25px;
