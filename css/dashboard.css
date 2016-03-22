@@ -125,11 +125,18 @@
 
 .overlay {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  margin: auto;
+  padding: 2ex;
+
   z-index: 9999;
-  min-width: 100px;
-  min-height: 100px;
+  width: 50%;
+  height: 50%;
+
   box-shadow: 0 0 10px 1000px var(--shadow-color);
 }
 
