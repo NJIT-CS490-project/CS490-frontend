@@ -75,4 +75,10 @@
     });
     return newStream;
   };
+
+  exports.debounce = (stream, wait) => {
+    const identity = x => x;
+    const debounceIdentity = f.debounce(identity, wait);
+    return exports.map(stream, debounceIdentity);
+  }
 }
