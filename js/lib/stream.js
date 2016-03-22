@@ -77,8 +77,11 @@
   };
 
   exports.debounce = (stream, wait) => {
-    const identity = x => x;
-    const debounceIdentity = f.debounce(identity, wait);
-    return exports.map(stream, debounceIdentity);
-  }
+    const newStream = exports.create();
+    const debouncedPulse = f.debounce(exports.pulse, wait);
+    exports.subscribe(stream, value => {
+      debouncedPulse(newStream, value);
+    });
+    return newStream;
+  };
 }
