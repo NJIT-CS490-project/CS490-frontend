@@ -5,19 +5,6 @@
   font-family: "Arial";
 }
 
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  z-index: 9999;
-  width: 100%;
-  height: var(--navbar-height);
-
-  background-color: var(--primary-color);
-  box-shadow: 0 1px 5px var(--shadow-color);
-}
-
 .sidebar {
   position: fixed;
   top: var(--navbar-height);
@@ -61,4 +48,17 @@ nav {
 .event-setting h4 {
   margin: 0;
   padding: 1ex;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 9999;
+  width: 100%;
+  height: var(--navbar-height);
+
+  background-color: var(--primary-color);
+  box-shadow: 0 1px 5px var(--shadow-color);
 }
