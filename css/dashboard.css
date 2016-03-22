@@ -21,6 +21,10 @@
   color: var(--secondary-color);
 }
 
+.flex {
+  display: flex;
+}
+
 .sidebar {
   position: fixed;
   top: var(--navbar-height);
