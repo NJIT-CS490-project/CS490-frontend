@@ -39,10 +39,19 @@ nav {
   margin: 10px auto;
 
   background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.event-setting input {
+  width: 100%;
+  margin: 0;
+  padding: 1ex;
+  border: none;
+  color: inherit;
+  font-weight: bold;
 }
 
 .event-setting h4 {
   margin: 0;
   padding: 1ex;
-  color: var(--primary-color);
 }
