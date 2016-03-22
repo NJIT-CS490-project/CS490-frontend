@@ -50,6 +50,37 @@
   padding: 1ex;
 }
 
+.button {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: .5ex;
+  font-weight: bold;
+}
+
+.button:hover {
+  box-shadow: var(--shadow-color) 0 4px 0px 0;
+  transform: translate(0, -4px);
+}
+
+.button:active {
+  box-shadow: none;
+  transform: translate(0, 0);
+}
+
+.button::-moz-focus-inner {
+  border: 0;
+}
+
+.nav-button {
+  --button-margin: 10px;
+  font-size: large;
+  margin-top: var(--button-margin);
+  margin-right: var(--button-margin);
+  float: right;
+  padding: 1.5ex;
+}
+
 nav {
   position: fixed;
   top: 0;
