@@ -150,6 +150,12 @@
   margin: 2ex;
 }
 
+label {
+  display: block;
+  font-weight: bold;
+  font-size: large;
+}
+
 nav {
   display: flex;
   justify-content: space-between;
