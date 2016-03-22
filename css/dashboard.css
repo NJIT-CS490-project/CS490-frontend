@@ -17,6 +17,10 @@
   color: var(--primary-color);
 }
 
+.secondary-color {
+  color: var(--secondary-color);
+}
+
 .sidebar {
   position: fixed;
   top: var(--navbar-height);
