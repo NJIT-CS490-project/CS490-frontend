@@ -144,6 +144,12 @@
   overflow-y: auto;
 }
 
+.form-button {
+  flex-grow: 1;
+  padding: 2ex;
+  margin: 2ex;
+}
+
 nav {
   display: flex;
   justify-content: space-between;
