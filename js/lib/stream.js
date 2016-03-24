@@ -5,15 +5,16 @@
 
   const f = window.lib.f;
 
-  exports.create = () => [];
+  exports.create = () => ({ value: exports, subscribers: [] });
 
   exports.pulse = (stream, value) => {
-    stream.forEach(cb => cb(value));
+    stream.value = value;
+    stream.subscribers.forEach(cb => cb(value));
     return stream;
   };
 
   exports.subscribe = (stream, cb) => {
-    stream.push(cb);
+    stream.subscribers.push(cb);
     return stream;
   };
 
