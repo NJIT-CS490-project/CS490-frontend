@@ -61,4 +61,14 @@
     });
     return newStream;
   };
+
+  exports.reduce = (stream, initial, reducer) => {
+    const newStream = exports.create();
+    let accumulated = initial;
+    exports.subscribe(stream, value => {
+      accumulated = reducer(accumulated, value);
+      exports.pulse(newStream, accumulated);
+    });
+    return newStream;
+  };
 }
