@@ -71,4 +71,6 @@
     });
     return newStream;
   };
+
+  exports.value = stream => stream.value;
 }
