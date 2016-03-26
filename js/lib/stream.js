@@ -88,4 +88,9 @@
 
     return newStream;
   };
+
+  exports.and = (streamA, streamB) => {
+    const and = (a, b) => a && b;
+    return exports.combine(streamA, streamB, and);
+  };
 }
