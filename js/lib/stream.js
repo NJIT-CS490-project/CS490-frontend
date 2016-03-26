@@ -5,7 +5,7 @@
 
   const f = window.lib.f;
 
-  exports.DEFAULT_VALUE = exports;
+  exports.DEFAULT_VALUE = null;
 
   exports.create = () => ({ value: exports.DEFAULT_VALUE, subscribers: [] });
 
