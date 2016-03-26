@@ -5,7 +5,9 @@
 
   const f = window.lib.f;
 
-  exports.create = () => ({ value: exports, subscribers: [] });
+  exports.DEFAULT_VALUE = exports;
+
+  exports.create = () => ({ value: exports.DEFAULT_VALUE, subscribers: [] });
 
   exports.pulse = (stream, value) => {
     stream.value = value;
