@@ -73,4 +73,19 @@
   };
 
   exports.value = stream => stream.value;
+
+  exports.combine = (streamA, streamB, combiner) => {
+    const newStream = exports.create();
+
+    exports.subscribe(streamA, value => {
+      const otherValue = exports.value(streamB);
+      exports.pulse(newStream, combiner(value, otherValue));
+    });
+    exports.subscribe(streamB, value => {
+      const otherValue = exports.value(streamA);
+      exports.pulse(newStream, combiner(value, otherValue));
+    });
+
+    return newStream;
+  };
 }
