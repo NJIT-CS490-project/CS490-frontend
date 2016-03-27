@@ -21,4 +21,12 @@
     });
     return base;
   };
+
+  exports.toKeys = (array, value) => {
+    const obj = {};
+    array.forEach(element => {
+      obj[element] = value;
+    });
+    return obj;
+  };
 }
