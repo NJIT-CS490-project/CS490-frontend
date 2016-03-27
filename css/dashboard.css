@@ -171,6 +171,16 @@
   height: calc(100% - var(--navbar-height));
 }
 
+.event {
+  --vertical-margin: 2ex;
+  width: 450px;
+  height: 200px;
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color);
+  margin-top: var(--vertical-margin);
+  margin-bottom: var(--vertical-margin);
+}
+
 label {
   display: block;
   font-weight: bold;
