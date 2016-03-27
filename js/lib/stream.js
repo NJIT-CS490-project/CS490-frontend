@@ -34,6 +34,15 @@
     return stream;
   };
 
+  exports.poll = (target, rate) => {
+    const stream = exports.create();
+    const partialPulse = f.partial(exports.pulse, stream);
+    window.setInterval(() => {
+      partialPulse(target);
+    }, rate);
+    return stream;
+  };
+
   exports.log = (stream, tag) => exports.subscribe(stream, value => {
     console.log({ tag, value });
   });
