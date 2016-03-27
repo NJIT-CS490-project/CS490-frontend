@@ -13,6 +13,10 @@
   background-color: var(--secondary-color);
 }
 
+.warning-bg-color {
+  background-color: var(--warning-color);
+}
+
 .primary-color {
   color: var(--primary-color);
 }
