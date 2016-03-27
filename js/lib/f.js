@@ -29,4 +29,12 @@
     });
     return obj;
   };
+
+  exports.range = (end) => {
+    const array = [];
+    for (let index = 0; index < end; index++) {
+      array.push(index);
+    }
+    return array;
+  };
 }
