@@ -34,11 +34,11 @@
     return stream;
   };
 
-  exports.poll = (target, rate) => {
+  exports.poll = (func, rate) => {
     const stream = exports.create();
     const partialPulse = f.partial(exports.pulse, stream);
     window.setInterval(() => {
-      partialPulse(target);
+      partialPulse(func());
     }, rate);
     return stream;
   };
