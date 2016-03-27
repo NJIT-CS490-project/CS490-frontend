@@ -11,7 +11,7 @@
         <img src="images/event.png"></img>
         <section>
           <h1>${name}</h1>
-          <p>1970-01-01}</p>
+          <p>1970-01-01</p>
           <p>${timeStart} to ${timeEnd}</p>
           <p>${location}</p>
           <input type="button" value="Delete" class="button secondary-color warning-bg-color"></input>
