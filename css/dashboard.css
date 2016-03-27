@@ -156,6 +156,14 @@
   margin: 2ex;
 }
 
+.main {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: calc(100% - var(--sidebar-width));
+  height: calc(100% - var(--navbar-height));
+}
+
 label {
   display: block;
   font-weight: bold;
