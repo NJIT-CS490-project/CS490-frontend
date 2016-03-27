@@ -157,6 +157,13 @@
 }
 
 .main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-between;
+
+  overflow-y: auto;
   position: absolute;
   right: 0;
   bottom: 0;
