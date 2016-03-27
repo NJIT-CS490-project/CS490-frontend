@@ -13,4 +13,12 @@
       timeout = window.setTimeout(later, wait);
     };
   };
+
+  exports.assign = (base, extension) => {
+    Object.keys(extension)
+    .forEach(key => {
+      base[key] = extension[key];
+    });
+    return base;
+  };
 }
