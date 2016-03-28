@@ -4,3 +4,59 @@
   --warning-color: #fa4e32;
   --shadow-color: rgba(0, 0, 0, .2);
 }
+
+.primary-bg-color {
+  background-color: var(--primary-color);
+}
+
+.secondary-bg-color {
+  background-color: var(--secondary-color);
+}
+
+.warning-bg-color {
+  background-color: var(--warning-color);
+}
+
+.primary-color {
+  color: var(--primary-color);
+}
+
+.secondary-color {
+  color: var(--secondary-color);
+}
+
+
+.hidden {
+  visibility: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+
+.button {
+  border: 1px solid var(--primary-color);
+  border-radius: .5ex;
+  font-weight: bold;
+}
+
+.button:hover {
+  box-shadow: var(--shadow-color) 0 4px 0px 0;
+  transform: translate(0, -4px);
+}
+
+.button:active {
+  box-shadow: none;
+  transform: translate(0, 0);
+}
+
+.button:disabled {
+  background-color: var(--shadow-color);
+  color: #999;
+  border: 0;
+}
+
+.button::-moz-focus-inner {
+  border: 0;
+}
