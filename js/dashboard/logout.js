@@ -6,6 +6,6 @@
   stream.log(logoutStream, 'Logout Click Stream');
 
   stream.subscribe(logoutStream, () => {
-    window.location = 'login.html';
+    window.location = 'index.html';
   });
 }
