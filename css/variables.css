@@ -39,6 +39,7 @@
   border: 1px solid var(--primary-color);
   border-radius: .5ex;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .button:hover {
