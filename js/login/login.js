@@ -18,4 +18,9 @@
   stream.subscribe(loginFilled, isFilled => {
     loginButton.disabled = !isFilled;
   });
+
+  const loginButtonStream = stream.fromEvent(loginButton, 'click');
+  stream.map(stream.debounce(loginButtonStream, 1000), () => {
+    window.location = 'dashboard.html';
+  });
 }
