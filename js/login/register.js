@@ -37,6 +37,6 @@
 
   const registerClick = stream.fromEvent(registerButton, 'click');
   stream.subscribe(stream.debounce(registerClick, 1000), () => {
-    alert('Account succesfully created!');
+    alert('Account successfully created!');
   });
 }
