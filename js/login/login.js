@@ -40,6 +40,6 @@
       .then(() => {
         window.location = 'dashboard.html';
       })
-      .catch(error => console.error(error));
+      .catch(error => alert(error));
   });
 }
