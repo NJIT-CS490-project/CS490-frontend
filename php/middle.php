@@ -7,7 +7,7 @@ function remove_param($url, $key) {
 }
 
 
-$middle = 'http://scooterlabs.com/echo';
+$middle = 'http://osl84.njit.edu/~ejp9/CS490-middleend/';
 $request = $_SERVER['REQUEST_URI'];
 $endpoint = $_GET['endpoint'];
 $url = remove_param($middle . $endpoint . $request, 'endpoint');
