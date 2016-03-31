@@ -43,7 +43,7 @@
       }),
     };
 
-    const request = fetch('php/middle.php?endpoint=create.php', requestOptions);
+    const request = fetch('php/middle.php?endpoint=register.php', requestOptions);
     Promise.race([request, time.timeout(5000, 'Registration timed out')])
       .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
       .then(json => (json.message === 'Successfully created user') ? Promise.resolve() : Promise.reject(json.message))
