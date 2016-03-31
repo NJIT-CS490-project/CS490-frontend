@@ -1,11 +1,19 @@
 {
   const stream = window.lib.stream;
+  const time = window.lib.time;
 
   const logoutButton = document.querySelector('[value="Logout"]');
   const logoutStream = stream.fromEvent(logoutButton, 'click');
-  stream.log(logoutStream, 'Logout Click Stream');
 
   stream.subscribe(logoutStream, () => {
-    window.location = 'index.html';
+    const requestOptions = {
+      method: 'PUT',
+    };
+
+    const request = fetch('php/middle.php?endpoint=logout.php', requestOptions);
+    Promise.race([request, time.timeout(5000, 'Logout timed out. (?)')])
+      .then(response => (response.statusText === 'OK') ? Promise.resolve() : Promise.reject(response.statusText))
+      .then(() => { window.location = 'index.html'; })
+      .catch(error => console.error(error));
   });
 }
