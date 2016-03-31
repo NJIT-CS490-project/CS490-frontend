@@ -1,5 +1,6 @@
 {
   const stream = window.lib.stream;
+  const time = window.lib.time;
 
   const allFilledStream = inputElements => {
     return inputElements
@@ -19,8 +20,26 @@
     loginButton.disabled = !isFilled;
   });
 
+  const usernameProperty = stream.map(stream.fromEvent(usernameInput, 'input'), event => event.target.value);
+  const passwordProperty = stream.map(stream.fromEvent(passwordInput, 'input'), event => event.target.value);
+
   const loginButtonStream = stream.fromEvent(loginButton, 'click');
-  stream.map(stream.debounce(loginButtonStream, 1000), () => {
-    window.location = 'dashboard.html';
+  stream.subscribe(loginButtonStream, () => {
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify({
+        username: stream.value(usernameProperty),
+        password: stream.value(passwordProperty),
+      }),
+    };
+
+    const request = fetch('php/middle.php?endpoint=login.php', requestOptions);
+    Promise.race([request, time.timeout(5000, 'Login timed out')])
+      .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
+      .then(json => (json.message === "Valid login") ? Promise.resolve() : Promise.reject(json.message))
+      .then(() => {
+        window.location = 'dashboard.html';
+      })
+      .catch(error => console.error(error));
   });
 }
