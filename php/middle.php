@@ -41,6 +41,11 @@ if ($endpoint == 'login.php') {
   session_start($sessionID);
 }
 
+if ($endpoint == 'logout.php') {
+  session_unset();
+  session_destroy();
+}
+
 foreach($headerArray as $header) {
   $colonPos = strpos($header, ':');
 
