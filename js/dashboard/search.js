@@ -28,7 +28,10 @@
     console.log(search);
     const string = encodeURIComponent(search);
     const count = 30;
-    const request = fetch(`php/middle.php?endpoint=search.php&string=${string}&count=${count}`);
+    const request = fetch(`php/middle.php?endpoint=search.php&string=${string}&count=${count}`, {
+      credentials: 'same-origin',
+    });
+
     Promise.race([request, time.timeout(5000, 'Search timed out.')])
       .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
       .then(json => (json.message === 'Events found') ? json.events : Promise.reject(json.message))
