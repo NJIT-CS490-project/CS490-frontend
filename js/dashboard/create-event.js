@@ -53,9 +53,6 @@
   const titleField = document.getElementById('create-title');
   const titleProperty = inputToStream(titleField);
 
-  const descriptionField = document.getElementById('create-description');
-  const descriptionProperty = inputToStream(descriptionField);
-
   const dateField = document.getElementById('create-date');
   const dateProperty = inputToStream(dateField);
 
@@ -83,7 +80,6 @@
 
   stream.subscribe(submitFormStream, () => {
     const title = stream.value(titleProperty);
-    const description = stream.value(descriptionProperty) || '';
     const date = stream.value(dateProperty);
     const startTime = stream.value(startTimeProperty) || '';
     const endTime = stream.value(endTimeProperty) || '';
@@ -91,7 +87,7 @@
 
     const requestOptions = {
       method: 'POST',
-      body: JSON.stringify({ title, description, date, startTime, endTime, location }),
+      body: JSON.stringify({ title, date, startTime, endTime, location }),
       credentials: 'same-origin',
     };
 
