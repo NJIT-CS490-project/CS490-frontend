@@ -35,6 +35,12 @@ $headers = substr($response, 0, $header_size);
 $body = substr($response, $header_size);
 $headerArray = explode(PHP_EOL, $headers);
 
+if ($endpoint == 'login.php') {
+  $login_body = json_decode($body, true);
+  $sessionID = $login_body['sessionID'];
+  session_start($sessionID);
+}
+
 foreach($headerArray as $header) {
   $colonPos = strpos($header, ':');
 
