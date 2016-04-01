@@ -34,7 +34,7 @@
       .then(json => {
         return fetch('php/middle.php?endpoint=self.php')
           .then(response => response.json())
-          .then(self => json.map(event => eventView(event, self.username, self.isAdmin)));
+          .then(self => json.map(event => eventView(event, self.username, self.admin)));
       })
       .then(newInnerHTML => {
         main.innerHTML = newInnerHTML;
