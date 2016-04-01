@@ -44,7 +44,7 @@
         return main;
       })
       .then(main => {
-        const buttons = main.querySelectorAll('[value="Delete"]');
+        const buttons = [].slice.call(main.querySelectorAll('[value="Delete"]'));
         buttons.forEach(button => button.addEventListener('click', deleteEvent));
       })
       .catch(error => console.error(error));
