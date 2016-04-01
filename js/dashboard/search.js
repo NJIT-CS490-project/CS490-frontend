@@ -13,7 +13,10 @@
 
   const deleteEvent = event => {
     const id = event.target.dataset['id'];
-    return fetch(`php/middle.php?endpoint=delete.php&id=${id}`, { credentials: 'same-origin' })
+    return fetch(`php/middle.php?endpoint=delete.php&id=${id}`, { 
+      credentials: 'same-origin',
+      method: 'DELETE'
+    })
       .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
       .then(() => alert('Event successfully deleted!'))
       .catch(error => alert(error));
