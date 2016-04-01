@@ -24,8 +24,11 @@
   const searchStream = createSearchStream(searchBar);
 
   const main = document.getElementsByClassName('main')[0];
-  stream.subscribe(searchStream, () => {
-    const request = fetch('php/middle.php?endpoint=search.php');
+  stream.subscribe(searchStream, search => {
+    console.log(search);
+    const string = encodeURIComponent(search);
+    const count = 30;
+    const request = fetch(`php/middle.php?endpoint=search.php&string=${string}&count=${count}`);
     Promise.race([request, time.timeout(5000, 'Search timed out.')])
       .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
       .then(json => {
