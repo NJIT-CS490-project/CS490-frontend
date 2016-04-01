@@ -17,7 +17,7 @@
       credentials: 'same-origin',
       method: 'DELETE'
     })
-      .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
+      .then(response => (response.statusText !== 'OK') ? Promise.reject(response.statusText) : '')
       .then(() => alert('Event successfully deleted!'))
       .catch(error => alert(error));
   };
