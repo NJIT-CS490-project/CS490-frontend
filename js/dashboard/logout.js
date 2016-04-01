@@ -8,6 +8,7 @@
   stream.subscribe(logoutStream, () => {
     const requestOptions = {
       method: 'PUT',
+      credentials: 'same-origin',
     };
 
     const request = fetch('php/middle.php?endpoint=logout.php', requestOptions);
