@@ -92,6 +92,7 @@
     const requestOptions = {
       method: 'POST',
       body: JSON.stringify({ title, description, date, startTime, endTime, location }),
+      credentials: 'same-origin',
     };
 
     const request = fetch('php/middle.php?endpoint=create.php', requestOptions);
