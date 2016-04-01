@@ -7,6 +7,6 @@
       .then(json => {
         profileName.innerHTML = json.username;
       })
-      .catch(err => alert(err));
+      .catch(err => console.error(err));
   });
 }
