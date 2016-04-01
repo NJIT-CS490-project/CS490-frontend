@@ -32,7 +32,7 @@
     Promise.race([request, time.timeout(5000, 'Search timed out.')])
       .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
       .then(json => {
-        return fetch('http://osl84.njit.edu/~ejp9/CS490-middleend/self.php')
+        return fetch('php/middle.php?endpoint=self.php')
           .then(response => response.json())
           .then(self => json.map(event => eventView(event, self.username, self.isAdmin)));
       })
