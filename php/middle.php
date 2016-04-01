@@ -15,8 +15,8 @@ $ch = curl_init();
 $headers = getallheaders();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  curl_setopt($ch, CURLOPT_POST, TRUE);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $_POST);
+  $request = file_get_contents("php://input");
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
 }
 
 if (isset($headers['Cookie'])) {
