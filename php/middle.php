@@ -42,8 +42,9 @@ if ($endpoint == 'login.php') {
 }
 
 if ($endpoint == 'logout.php') {
-  session_unset();
-  session_destroy();
+  session_start(); // initialize session
+  session_destroy(); // destroy session
+  setcookie("PHPSESSID","",time()-3600,"/"); // delete session cookie  
 }
 
 foreach($headerArray as $header) {
