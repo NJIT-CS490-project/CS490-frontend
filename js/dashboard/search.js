@@ -35,7 +35,7 @@
       .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
       .then(json => (json.message === 'Events found') ? json.events : Promise.reject(json.message))
       .then(events => {
-        return fetch('php/middle.php?endpoint=self.php')
+        return fetch('php/middle.php?endpoint=self.php', { credentials: 'same-origin' })
           .then(response => response.json())
           .then(self => events.map(event => eventView(event, self.username, self.admin)));
       })
