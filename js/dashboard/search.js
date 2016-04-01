@@ -31,10 +31,11 @@
     const request = fetch(`php/middle.php?endpoint=search.php&string=${string}&count=${count}`);
     Promise.race([request, time.timeout(5000, 'Search timed out.')])
       .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
-      .then(json => {
+      .then(json => (json.message === 'Events found') ? json.events : Promise.reject(json.message))
+      .then(events => {
         return fetch('php/middle.php?endpoint=self.php')
           .then(response => response.json())
-          .then(self => json.map(event => eventView(event, self.username, self.admin)));
+          .then(self => events.map(event => eventView(event, self.username, self.admin)));
       })
       .then(newInnerHTML => {
         main.innerHTML = newInnerHTML;
