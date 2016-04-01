@@ -31,9 +31,10 @@
         username: stream.value(usernameProperty),
         password: stream.value(passwordProperty),
       }),
-      headers: new Headers({
+      headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-      }),
+      },
     };
 
     const request = fetch('php/middle.php?endpoint=login.php', requestOptions);
