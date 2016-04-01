@@ -37,7 +37,7 @@
       .then(events => {
         return fetch('php/middle.php?endpoint=self.php', { credentials: 'same-origin' })
           .then(response => response.json())
-          .then(self => events.map(event => eventView(event, self.username, self.admin)));
+          .then(self => events.map(event => eventView(event, self.id, self.admin)));
       })
       .then(newInnerHTML => {
         main.innerHTML = newInnerHTML;
