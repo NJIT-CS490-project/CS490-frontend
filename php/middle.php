@@ -19,22 +19,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
 }
 
-if (isset($headers['Cookie'])) {
-  curl_setopt($ch, CURLOPT_COOKIE, $headers['Cookie']);
+// Transfwer cookies into request on all non-logins
+if (isset($headers['Cookie']) && $endpoint != 'login.php') {
+  curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'Cookie: ' . $headers['Cookie']);
 }
 
 curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_HEADER, TRUE);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
 $response = curl_exec($ch);
-
 
 $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
 $headers = substr($response, 0, $header_size);
 $body = substr($response, $header_size);
 $headerArray = explode(PHP_EOL, $headers);
 
+// If login succeded, set php session cookie.
 if ($endpoint == 'login.php') {
   $login_body = json_decode($body, true);
   $sessionID = $login_body['sessionID'];
