@@ -1,107 +1,98 @@
 {
-  window.lib = window.lib || {};
-  window.lib.stream = {};
-  const exports = window.lib.stream;
-
   const f = window.lib.f;
 
-  exports.DEFAULT_VALUE = null;
+  const Stream = defaultValue => {
+    this.subscribers = [];
+    this.value = defaultValue || undefined;
+  };
 
-  exports.create = () => ({ value: exports.DEFAULT_VALUE, subscribers: [] });
-
-  exports.pulse = (stream, value) => {
-    stream.value = value;
-    stream.subscribers.forEach(cb => cb(value));
+  Stream.fromEvent = (EventTarget, eventName) => {
+    const stream = new Stream();
+    EventTarget.addEventListener(eventName, event => stream.pulse(event));
     return stream;
   };
 
-  exports.subscribe = (stream, cb) => {
-    stream.subscribers.push(cb);
+  Stream.poll = (func, rate) => {
+    const stream = new Stream();
+    window.setInterval(() => stream.pulse(func()), rate);
     return stream;
   };
 
-  exports.map = (stream, transform) => {
-    const newStream = exports.create();
-    const partialPulse = f.partial(exports.pulse, newStream);
-    exports.subscribe(stream, value => partialPulse(transform(value)));
+
+  Stream.prototype.pulse = value => {
+    this.value = value;
+    this.subscribers.forEach(cb => cb(this.value));
+    return this;
+  };
+
+  Stream.prototype.subscribe = func => {
+    this.subscribers.push(func);
+    return this;
+  };
+
+  Stream.prototype.map = transform => {
+    const stream = new Stream();
+    this.subscribe(value => stream.pulse(transform(value)));
+    return stream;
+  };
+
+  Stream.prototype.log = tag => this.subscribe(value => console.log({ tag, value }));
+
+  Stream.prototype.merge = streams => {
+    const newStream = new Stream();
+    streams.forEach(stream => stream.subscribe(value => newStream.pulse(value)));
     return newStream;
   };
 
-  exports.fromEvent = (EventTarget, eventName) => {
-    const stream = exports.create();
-    const partialPulse = f.partial(exports.pulse, stream);
-    EventTarget.addEventListener(eventName, partialPulse);
-    return stream;
-  };
-
-  exports.poll = (func, rate) => {
-    const stream = exports.create();
-    const partialPulse = f.partial(exports.pulse, stream);
-    window.setInterval(() => {
-      partialPulse(func());
-    }, rate);
-    return stream;
-  };
-
-  exports.log = (stream, tag) => exports.subscribe(stream, value => {
-    console.log({ tag, value });
-  });
-
-  exports.merge = (streams) => {
-    const newStream = exports.create();
-    const partialPulse = f.partial(exports.pulse, newStream);
-    streams.forEach(stream => {
-      exports.subscribe(stream, partialPulse);
+  Stream.prototype.filter = predicate => {
+    const stream = new Stream();
+    this.subscribe(value => {
+      if (predicate(value)) stream.pulse(value);
     });
-    return newStream;
+    return stream;
   };
 
-  exports.filter = (stream, predicate) => {
-    const newStream = exports.create();
-    exports.subscribe(stream, value => {
-      if (predicate(value)) exports.pulse(newStream, value);
-    });
-    return newStream;
+  Stream.prototype.debounce = wait => {
+    const stream = new Stream();
+    const debouncedFunc = f.debounce(stream.pulse, wait);
+    this.subscribe(value => debouncedFunc(value));
+    return stream;
   };
 
-  exports.debounce = (stream, wait) => {
-    const newStream = exports.create();
-    const debouncedPulse = f.debounce(exports.pulse, wait);
-    exports.subscribe(stream, value => {
-      debouncedPulse(newStream, value);
-    });
-    return newStream;
-  };
-
-  exports.reduce = (stream, initial, reducer) => {
-    const newStream = exports.create();
+  Stream.prototype.reduce = (initial, reducer) => {
+    const stream = new Stream();
     let accumulated = initial;
-    exports.subscribe(stream, value => {
+    this.subscribe(value => {
       accumulated = reducer(accumulated, value);
-      exports.pulse(newStream, accumulated);
+      stream.pulse(accumulated);
     });
+    return stream;
+  };
+
+  Stream.prototype.get = () => this.value;
+
+  Stream.prototype.combine = (otherStream, combiner) => {
+    const newStream = new Stream();
+
+    this.subscribe(value => {
+      const otherValue = otherStream.get();
+      newStream.pulse(combiner(value, otherValue));
+    });
+
+    otherStream.subscribe(value => {
+      const otherValue = this.get();
+      newStream.pulse(combiner(value, otherValue));
+    });
+
     return newStream;
   };
 
-  exports.value = stream => stream.value;
-
-  exports.combine = (streamA, streamB, combiner) => {
-    const newStream = exports.create();
-
-    exports.subscribe(streamA, value => {
-      const otherValue = exports.value(streamB);
-      exports.pulse(newStream, combiner(value, otherValue));
-    });
-    exports.subscribe(streamB, value => {
-      const otherValue = exports.value(streamA);
-      exports.pulse(newStream, combiner(value, otherValue));
-    });
-
-    return newStream;
-  };
-
-  exports.and = (streamA, streamB) => {
+  Stream.prototype.and = (otherStream) => {
     const and = (a, b) => a && b;
-    return exports.combine(streamA, streamB, and);
+    return this.combine(otherStream, and);
   };
+
+
+  window.lib = window.lib || {};
+  window.lib.Stream = Stream;
 }
