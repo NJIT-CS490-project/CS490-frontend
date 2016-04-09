@@ -1,5 +1,5 @@
 {
-  const stream = window.lib.stream;
+  const Stream = window.lib.Stream;
   const time = window.lib.time;
 
 
@@ -15,89 +15,85 @@
     submitButton.disabled = true;
   };
 
-  const fieldsFilled = inputElements => {
-    return inputElements
-      .map(element => {
-        const eventStream = stream.fromEvent(element, 'input');
-        const contentStream = stream.map(eventStream, event => event.target.value);
-        const pollStream = stream.poll(() => element.value, 2000);
-        return stream.merge([contentStream, pollStream]);
-      })
-      .map(valueStream => stream.map(valueStream, string => string.length > 0))
-      .reduce(stream.and);
+  const fieldsFilled = inputElements =>
+    inputElements
+    .map(element =>
+      Stream
+      .fromEvent(element, 'input')
+      .map(event => event.target.value)
+      .merge(Stream.poll(() => element.value, 2000))
+      .map(string => string.length > 0))
+    .reduce((previousStream, currentStream) => previousStream.and(currentStream));
+
+  const fromInput = inputElement =>
+    Stream
+    .fromEvent(inputElement, 'input')
+    .map(event => event.target.value);
+
+
+  const buttons = {
+    showNew: document.querySelector('[value="Create Event"]'),
+    cancel: document.getElementById('create-cancel'),
+    submit: document.getElementById('create-submit'),
   };
-
-  const inputToStream = inputElement => stream.map(stream.fromEvent(inputElement, 'input'),
-                                                   event => event.target.value);
-
-
-  const showNewEventButton = document.querySelector('[value="Create Event"]');
-  const showNewEventStream = stream.fromEvent(showNewEventButton, 'click');
-
   const formContainer = document.getElementById('modal-create');
   const newEventForm = formContainer.getElementsByTagName('form')[0];
 
-  const submitFormButton = document.getElementById('create-submit');
-  const submitFormStream = stream.fromEvent(submitFormButton, 'click');
+  Stream
+    .fromEvent(buttons.showNew, 'click')
+    .subscribe(() => showModalForm(formContainer, newEventForm, buttons.submit));
 
-  const cancelFormButton = document.getElementById('create-cancel');
-  const cancelFormStream = stream.fromEvent(cancelFormButton, 'click');
+  Stream
+    .fromEvent(buttons.cancel, 'click')
+    .subscribe(() => hideModalForm(formContainer, newEventForm, buttons.submit));
 
-  const formResetStream = stream.map(stream.fromEvent(newEventForm, 'reset'), () => false);
 
-  const requiredFields = [].slice
-    .call(newEventForm.getElementsByTagName('input'))
+  const requiredFields = Array
+    .from(newEventForm.getElementsByTagName('input'))
     .filter(element => element.required);
-  const fieldsFilledStream = fieldsFilled(requiredFields);
+  Stream
+    .fromEvent(newEventForm, 'reset')
+    .map(() => false)
+    .merge(fieldsFilled(requiredFields))
+    .subscribe(allowSubmit => {
+      buttons.submit.disabled = !allowSubmit;
+    });
 
-  const titleField = document.getElementById('create-title');
-  const titleProperty = inputToStream(titleField);
+  const properties = {
+    title: fromInput(document.getElementById('create-title')),
+    date: fromInput(document.getElementById('create-date')),
+    startTime: fromInput(document.getElementById('create-start')),
+    endTime: fromInput(document.getElementById('create-end')),
+    place: fromInput(document.getElementById('create-place')),
+  };
+  Stream
+    .fromEvent(buttons.submit, 'click')
+    .subscribe(() => {
+      const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify({
+          title: properties.title.get() || '',
+          date: properties.date.get() || '',
+          startTime: properties.startTime.get() || '',
+          endTime: properties.endTime.get() || '',
+          location: properties.location.get() || '',
+        }),
+        credentials: 'same-origin',
+      };
 
-  const dateField = document.getElementById('create-date');
-  const dateProperty = inputToStream(dateField);
+      const parallels = [
+        fetch('php/middle.php?endpoint=create.php', requestOptions),
+        time.timeout(5000, 'Event creation request timed out'),
+      ];
 
-  const startTimeField = document.getElementById('create-start');
-  const startTimeProperty = inputToStream(startTimeField);
-
-  const endTimeField = document.getElementById('create-end');
-  const endTimeProperty = inputToStream(endTimeField);
-
-  const placeField = document.getElementById('create-place');
-  const placeProperty = inputToStream(placeField);
-
-
-  stream.subscribe(showNewEventStream, () => {
-    showModalForm(formContainer, newEventForm, submitFormButton);
-  });
-
-  stream.subscribe(cancelFormStream, () => {
-    hideModalForm(formContainer, newEventForm, submitFormButton);
-  });
-
-  stream.subscribe(stream.merge([formResetStream, fieldsFilledStream]), allowSubmit => {
-    submitFormButton.disabled = !allowSubmit;
-  });
-
-  stream.subscribe(submitFormStream, () => {
-    const title = stream.value(titleProperty);
-    const date = stream.value(dateProperty);
-    const startTime = stream.value(startTimeProperty) || '';
-    const endTime = stream.value(endTimeProperty) || '';
-    const location = stream.value(placeProperty);
-
-    const requestOptions = {
-      method: 'POST',
-      body: JSON.stringify({ title, date, startTime, endTime, location }),
-      credentials: 'same-origin',
-    };
-
-    const request = fetch('php/middle.php?endpoint=create.php', requestOptions);
-    Promise.race([request, time.timeout(5000, 'Event creation request timed out')])
-      .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
-      .then(json => (json.message === "Valid login") ? Promise.resolve() : Promise.reject(json.message))
-      .then(() => {
-        hideModalForm(formContainer, newEventForm, submitFormButton);
-      })
-      .catch(error => alert(error));
-  });
+      Promise.race(parallels)
+        .then(response => (response.statusText === 'OK')
+          ? response.json()
+          : Promise.reject(response.statusText))
+        .then(json => (json.message === 'Valid login')
+          ? Promise.resolve()
+          : Promise.reject(json.message))
+        .then(() => hideModalForm(formContainer, newEventForm, buttons.submit))
+        .catch(error => alert(error));
+    });
 }
