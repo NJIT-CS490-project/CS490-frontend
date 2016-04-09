@@ -57,8 +57,9 @@
 
   Stream.prototype.debounce = function debounce(wait) {
     const stream = new Stream();
-    const debouncedFunc = f.debounce(stream.pulse, wait);
-    this.subscribe(value => debouncedFunc(value));
+    this.subscribe(f.debounce(value => {
+      stream.pulse(value);
+    }, wait));
     return stream;
   };
 
