@@ -1,10 +1,10 @@
 {
   const f = window.lib.f;
 
-  const Stream = defaultValue => {
+  function Stream(defaultValue) {
     this.subscribers = [];
     this.value = defaultValue || undefined;
-  };
+  }
 
   Stream.fromEvent = (EventTarget, eventName) => {
     const stream = new Stream();
@@ -19,32 +19,34 @@
   };
 
 
-  Stream.prototype.pulse = value => {
+  Stream.prototype.pulse = function pulse(value) {
     this.value = value;
     this.subscribers.forEach(cb => cb(this.value));
     return this;
   };
 
-  Stream.prototype.subscribe = func => {
+  Stream.prototype.subscribe = function subscribe(func) {
     this.subscribers.push(func);
     return this;
   };
 
-  Stream.prototype.map = transform => {
+  Stream.prototype.map = function map(transform) {
     const stream = new Stream();
     this.subscribe(value => stream.pulse(transform(value)));
     return stream;
   };
 
-  Stream.prototype.log = tag => this.subscribe(value => console.log({ tag, value }));
+  Stream.prototype.log = function log(tag) {
+    return this.subscribe(value => console.log({ tag, value }));
+  };
 
-  Stream.prototype.merge = streams => {
+  Stream.prototype.merge = function merge(otherStream) {
     const newStream = new Stream();
     streams.forEach(stream => stream.subscribe(value => newStream.pulse(value)));
     return newStream;
   };
 
-  Stream.prototype.filter = predicate => {
+  Stream.prototype.filter = function filter(predicate) {
     const stream = new Stream();
     this.subscribe(value => {
       if (predicate(value)) stream.pulse(value);
@@ -52,14 +54,14 @@
     return stream;
   };
 
-  Stream.prototype.debounce = wait => {
+  Stream.prototype.debounce = function debounce(wait) {
     const stream = new Stream();
     const debouncedFunc = f.debounce(stream.pulse, wait);
     this.subscribe(value => debouncedFunc(value));
     return stream;
   };
 
-  Stream.prototype.reduce = (initial, reducer) => {
+  Stream.prototype.reduce = function reduce(initial, reducer) {
     const stream = new Stream();
     let accumulated = initial;
     this.subscribe(value => {
@@ -69,9 +71,11 @@
     return stream;
   };
 
-  Stream.prototype.get = () => this.value;
+  Stream.prototype.get = function get() {
+    return this.value;
+  };
 
-  Stream.prototype.combine = (otherStream, combiner) => {
+  Stream.prototype.combine = function combine(otherStream, combiner) {
     const newStream = new Stream();
 
     this.subscribe(value => {
@@ -87,9 +91,9 @@
     return newStream;
   };
 
-  Stream.prototype.and = (otherStream) => {
-    const and = (a, b) => a && b;
-    return this.combine(otherStream, and);
+  Stream.prototype.and = function and(otherStream) {
+    const andFunc = (a, b) => a && b;
+    return this.combine(otherStream, andFunc);
   };
 
 
