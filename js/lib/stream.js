@@ -42,7 +42,8 @@
 
   Stream.prototype.merge = function merge(otherStream) {
     const newStream = new Stream();
-    streams.forEach(stream => stream.subscribe(value => newStream.pulse(value)));
+    this.subscribe(value => newStream.pulse(value));
+    otherStream.subscribe(value => newStream.pulse(value));
     return newStream;
   };
 
