@@ -1,53 +1,82 @@
 {
-  const stream = window.lib.stream;
+  const Stream = window.lib.Stream;
   const time = window.lib.time;
 
+
   const fieldsMatch = fields => {
+    const combiner = (a, b) => a === b;
     return fields
-      .map(field => stream.fromEvent(field, 'input'))
-      .map(eventStream => stream.map(eventStream, event => event.target.value))
-      .reduce((previousStream, newStream) => stream.combine(previousStream, newStream, (a, b) => a === b));
+    .map(field => Stream.fromEvent(field, 'input'))
+    .map(eventStream => eventStream.map(event => event.target.value))
+    .reduce((previous, current) => previous.combine(current, combiner));
   };
 
   const fieldsFilled = fields => {
+    const reducer = (a, b) => a && b;
+
     return fields
-      .map(field => stream.fromEvent(field, 'input'))
-      .map(eventStream => stream.map(eventStream, event => event.target.value))
-      .map(textStream => stream.map(textStream, text => text.length > 0))
-      .reduce(stream.and);
+    .map(field => Stream.fromEvent(field, 'input'))
+    .map(eventStream => eventStream.map(event => event.target.value))
+    .map(textStream => textStream.map(text => text.length > 0))
+    .reduce(reducer);
   };
 
+  const ifValidResponse = response => {
+    if (response.statusText === 'OK') return response;
+    return Promise.reject(response.statusText);
+  };
+
+  const parseResponseJSON = response => response.json();
+
+  const ifAccountCreated = json => {
+    if (json.message === 'Properly created account') return Promise.resolve();
+    return Promise.reject(json.message);
+  };
+
+
   const registerForm = document.getElementById('register');
-  const registerButton = registerForm.querySelector('[type="button"]');
-  const usernameInput = registerForm.querySelector('[type="text"]');
   const passwordFields = registerForm.querySelectorAll('[type="password"]');
   const passwordInput = passwordFields[0];
   const confirmPasswordInput = passwordFields[1];
+  const usernameInput = registerForm.querySelector('[type="text"]');
+  const registerButton = registerForm.querySelector('[type="button"]');
 
-  const passwordsMatch = fieldsMatch([passwordInput, confirmPasswordInput]);
-  const allFilled = fieldsFilled([passwordInput, confirmPasswordInput, usernameInput]);
-  const showButton = stream.and(passwordsMatch, allFilled);
-  stream.subscribe(showButton, shouldEnable => {
+  fieldsMatch([passwordInput, confirmPasswordInput])
+  .and(fieldsFilled([passwordInput, confirmPasswordInput, usernameInput]))
+  .subscribe(shouldEnable => {
     registerButton.disabled = !shouldEnable;
   });
 
-  const usernameProperty = stream.map(stream.fromEvent(usernameInput, 'input'), event => event.target.value);
-  const passwordProperty = stream.map(stream.fromEvent(passwordInput, 'input'), event => event.target.value);
-  const registerClick = stream.fromEvent(registerButton, 'click');
-  stream.subscribe(stream.debounce(registerClick, 250), () => {
+  const usernameProperty = Stream
+  .fromEvent(usernameInput)
+  .map(event => event.target.value);
+
+  const passwordProperty = Stream
+  .fromEvent(passwordInput)
+  .map(event => event.target.value);
+
+  Stream
+  .fromEvent(registerButton, 'click')
+  .debounce(250)
+  .subscribe(() => {
     const requestOptions = {
       method: 'POST',
       body: JSON.stringify({
-        username: stream.value(usernameProperty),
-        password: stream.value(passwordProperty),
+        username: usernameProperty.get(),
+        password: passwordProperty.get(),
       }),
     };
 
-    const request = fetch('php/middle.php?endpoint=register.php', requestOptions);
-    Promise.race([request, time.timeout(5000, 'Registration timed out')])
-      .then(response => (response.statusText === 'OK') ? response.json() : Promise.reject(response.statusText))
-      .then(json => (json.message === 'Properly created account') ? Promise.resolve() : Promise.reject(json.message))
-      .then(() => alert('Account successfully created!'))
-      .catch(error => alert(error));
+    const parallels = [
+      fetch('php/middle.php?endpoint=register.php', requestOptions),
+      time.timeout(5000, 'Registration timed out'),
+    ];
+
+    Promise.race(parallels)
+    .then(ifValidResponse)
+    .then(parseResponseJSON)
+    .then(ifAccountCreated)
+    .then(() => alert('Account successfully created!'))
+    .catch(error => alert(error));
   });
 }
