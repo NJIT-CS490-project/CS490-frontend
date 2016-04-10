@@ -12,6 +12,10 @@
     return stream;
   };
 
+  Stream.fromInput = eventTarget => Stream
+  .fromEvent(eventTarget, 'input')
+  .map(event => event.target.value);
+
   Stream.poll = (func, rate) => {
     const stream = new Stream();
     window.setInterval(() => stream.pulse(func()), rate);
