@@ -6,8 +6,7 @@
   const fieldsMatch = fields => {
     const combiner = (a, b) => a === b;
     return fields
-    .map(field => Stream.fromEvent(field, 'input'))
-    .map(eventStream => eventStream.map(event => event.target.value))
+    .map(field => Stream.fromInput(field, 'input'))
     .reduce((previous, current) => previous.combine(current, combiner));
   };
 
@@ -15,8 +14,7 @@
     const reducer = (a, b) => a && b;
 
     return fields
-    .map(field => Stream.fromEvent(field, 'input'))
-    .map(eventStream => eventStream.map(event => event.target.value))
+    .map(field => Stream.fromInput(field, 'input'))
     .map(textStream => textStream.map(text => text.length > 0))
     .reduce(reducer);
   };
@@ -47,13 +45,9 @@
     registerButton.disabled = !shouldEnable;
   });
 
-  const usernameProperty = Stream
-  .fromEvent(usernameInput)
-  .map(event => event.target.value);
+  const usernameProperty = Stream.fromInput(usernameInput);
 
-  const passwordProperty = Stream
-  .fromEvent(passwordInput)
-  .map(event => event.target.value);
+  const passwordProperty = Stream.fromInput(passwordInput)
 
   Stream
   .fromEvent(registerButton, 'click')
