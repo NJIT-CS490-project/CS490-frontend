@@ -19,16 +19,10 @@
     inputElements
     .map(element =>
       Stream
-      .fromEvent(element, 'input')
-      .map(event => event.target.value)
+      .fromInput(element, 'input')
       .merge(Stream.poll(() => element.value, 2000))
       .map(string => string.length > 0))
     .reduce((previousStream, currentStream) => previousStream.and(currentStream));
-
-  const fromInput = inputElement =>
-    Stream
-    .fromEvent(inputElement, 'input')
-    .map(event => event.target.value);
 
 
   const buttons = {
@@ -60,11 +54,11 @@
     });
 
   const properties = {
-    title: fromInput(document.getElementById('create-title')),
-    date: fromInput(document.getElementById('create-date')),
-    startTime: fromInput(document.getElementById('create-start')),
-    endTime: fromInput(document.getElementById('create-end')),
-    place: fromInput(document.getElementById('create-place')),
+    title: Stream.fromInput(document.getElementById('create-title')),
+    date: Stream.fromInput(document.getElementById('create-date')),
+    startTime: Stream.fromInput(document.getElementById('create-start')),
+    endTime: Stream.fromInput(document.getElementById('create-end')),
+    place: Stream.fromInput(document.getElementById('create-place')),
   };
   Stream
     .fromEvent(buttons.submit, 'click')
