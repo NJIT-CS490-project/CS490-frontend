@@ -55,13 +55,11 @@
     place: Stream.fromInput(document.getElementById('create-place')),
   };
 
-  Stream
-    .fromEvent(newEventForm, 'reset')
-    .map(() => false)
-    .merge(fieldsFilled(requiredFields))
-    .merge(properties.date.map(validate.date))
-    .merge(properties.startTime.map(validate.time))
-    .merge(properties.endTime.map(validate.time))
+  fieldsFilled(requiredFields)
+    .and(properties.date.map(validate.date))
+    .and(properties.startTime.map(validate.time))
+    .and(properties.endTime.map(validate.time))
+    .merge(Stream.fromEvent(newEventForm, 'reset').map(() => false))
     .subscribe(allowSubmit => {
       buttons.submit.disabled = !allowSubmit;
     });
