@@ -1,6 +1,7 @@
 {
   const Stream = window.lib.Stream;
   const time = window.lib.time;
+  const validate = window.lib.validate;
 
 
   const hideModalForm = (container, form, submitButton) => {
@@ -45,13 +46,6 @@
   const requiredFields = Array
     .from(newEventForm.getElementsByTagName('input'))
     .filter(element => element.required);
-  Stream
-    .fromEvent(newEventForm, 'reset')
-    .map(() => false)
-    .merge(fieldsFilled(requiredFields))
-    .subscribe(allowSubmit => {
-      buttons.submit.disabled = !allowSubmit;
-    });
 
   const properties = {
     title: Stream.fromInput(document.getElementById('create-title')),
@@ -60,6 +54,18 @@
     endTime: Stream.fromInput(document.getElementById('create-end')),
     place: Stream.fromInput(document.getElementById('create-place')),
   };
+
+  Stream
+    .fromEvent(newEventForm, 'reset')
+    .map(() => false)
+    .merge(fieldsFilled(requiredFields))
+    .merge(properties.date.map(validate.date))
+    .merge(properties.startTime.map(validate.time))
+    .merge(properties.endTime.map(validate.time))
+    .subscribe(allowSubmit => {
+      buttons.submit.disabled = !allowSubmit;
+    });
+
   Stream
     .fromEvent(buttons.submit, 'click')
     .subscribe(() => {
