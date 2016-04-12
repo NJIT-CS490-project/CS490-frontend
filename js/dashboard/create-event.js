@@ -52,10 +52,12 @@
     date: Stream.fromInput(document.getElementById('create-date')),
     startTime: Stream.fromInput(document.getElementById('create-start')),
     endTime: Stream.fromInput(document.getElementById('create-end')),
-    place: Stream.fromInput(document.getElementById('create-place')),
+    room: Stream.fromInput(document.getElementById('create-room')),
+    building: Stream.fromSelect(document.getElementById('create-building')),
   };
 
   fieldsFilled(requiredFields)
+    .and(properties.building.map(value => value !== ''))
     .and(properties.date.map(validate.date))
     .and(properties.startTime.map(validate.time))
     .and(properties.endTime.map(validate.time))
@@ -74,7 +76,8 @@
           date: properties.date.get() || '',
           startTime: properties.startTime.get() || '',
           endTime: properties.endTime.get() || '',
-          location: properties.location.get() || '',
+          room: properties.room.get() || '',
+          building: properties.building.get() || '',
         }),
         credentials: 'same-origin',
       };

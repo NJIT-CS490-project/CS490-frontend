@@ -146,6 +146,14 @@
   padding: 0;
 }
 
+.select {
+  width: 100%;
+  margin: 0;
+  padding: 1ex;
+  font-weight: bold;
+  border: none;
+}
+
 label {
   display: block;
   font-weight: bold;
