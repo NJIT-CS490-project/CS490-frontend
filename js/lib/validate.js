@@ -1,6 +1,7 @@
 {
   window.lib = window.lib || {};
-  const exports = window.lib.exports;
+  window.lib.validate = {};
+  const exports = window.lib.validate;
 
   exports.date = input => {
     const regex = /^\d{4}-\d{1,2}-\d{1,2}$/;
