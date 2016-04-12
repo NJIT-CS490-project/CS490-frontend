@@ -18,4 +18,18 @@
 
     return true;
   };
+
+  exports.time = input => {
+    const regex = /\d{1,2}:\d{2}/;
+    if (!regex.test(input)) return false;
+
+    const tokens = input.split(':');
+    const hours = tokens[0];
+    if (hours < 0 || hours > 23) return false;
+
+    const minutes = tokens[1];
+    if (minutes < 0 || minutes > 59) return false;
+
+    return true;
+  };
 }
