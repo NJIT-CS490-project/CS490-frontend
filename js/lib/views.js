@@ -1,8 +1,9 @@
 {
-  window.views = window.views || {};
-  const exports = window.views;
+  window.lib = window.lib || {};
+  window.lib.views = {};
+  const exports = window.lib.views;
 
-  exports.eventView = (model, requesterID, isAdmin) => {
+  exports.event = (model, requesterID, isAdmin) => {
     const title = model.name || '';
     const date = model.date || '';
     const startTime = model.start || '';

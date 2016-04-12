@@ -1,7 +1,7 @@
 {
   const Stream = window.lib.Stream;
   const time = window.lib.time;
-  const eventView = window.views.eventView;
+  const eventView = window.lib.views.event;
 
   const fromSearch = searchBar =>
     Stream
