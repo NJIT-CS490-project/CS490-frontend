@@ -3,6 +3,8 @@
   window.lib.views = {};
   const exports = window.lib.views;
 
+  exports.optionList = (list) => list.map(item => `<option>${item}</option>`).join('\n');
+
   exports.event = (model, requesterID, isAdmin) => {
     const title = model.name || '';
     const date = model.date || '';
