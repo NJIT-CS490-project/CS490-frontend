@@ -2,9 +2,10 @@
   window.lib = window.lib || {};
   window.lib.api = {};
 
+
   const ifSuccessfulResponse = response => {
-    if (response.ok) Promise.resolve(response);
-    Promise.reject('Response code was not within 200-299 range');
+    if (response.ok) return Promise.resolve(response);
+    return Promise.reject('Response code was not within 200-299 range');
   };
 
   const snagJSON = response => response.json();
