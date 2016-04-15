@@ -26,15 +26,14 @@
 
 .event-setting {
   width: calc(100% - 20px);
-  min-height: 25px;
 
-  margin: 10px auto;
+  margin: .5ex auto;
 }
 
 .input-text {
   width: 100%;
   margin: 0;
-  padding: 1ex;
+  padding: .75ex;
   border: none;
   font-weight: bold;
 }
