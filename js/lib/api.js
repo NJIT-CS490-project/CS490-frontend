@@ -29,4 +29,9 @@
     return fetch(`php/middle.php?endpoint=delete.php&id=${id}`, requestOptions)
       .then(ifSuccessfulResponse);
   };
+
+  exports.getSelf = () =>
+    fetch('php/middle.php?endpoint=self.php', { credentials: 'same-origin' })
+    .then(ifSuccessfulResponse)
+    .then(snagJSON);
 }
