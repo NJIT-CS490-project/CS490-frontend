@@ -23,9 +23,36 @@
     </nav>
 
     <section class="sidebar primary-bg-color">
+
+      <section class="event-setting secondary-color">
+        <h1>Sorting</h1>
+      </section>
+
+      <section class="event-setting primary-color secondary-bg-color">
+        <select class="select secondary-bg-color primary-color" id="order" name="order">
+          <option value="asc" selected>Ascending</option>
+          <option value"desc">Descending</option>
+        </select>
+      </section>
+
+
+      <section class="event-setting primary-color secondary-bg-color">
+        <select class="select secondary-bg-color primary-color" id="sorting" name="sorting">
+          <option value="title" selected>Title - Alphabetical</option>
+          <option value="create">Creation Date</option>
+          <option value="due">Date Scheduled</option>
+          <option value="favorites">Most Favorites</option>
+        </select>
+      </section>
+
+      <section class="event-setting secondary-color">
+        <h1>Filtering</h1>
+      </section>
+
       <section class="event-setting primary-color secondary-bg-color">
         <input id="search" class="primary-color input-text search-bg" type="search" placeholder="Search"></input>
       </section>
+
       <input class="button sidebar-button primary-color secondary-bg-color" type="button" value="Create Event"></input>
     </section>
 
