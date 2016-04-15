@@ -22,4 +22,11 @@
       .then(ifSuccessfulResponse)
       .then(snagJSON);
   };
+
+  exports.deleteEvent = id => {
+    const requestOptions = { credentials: 'same-origin', method: 'DELETE' };
+
+    return fetch(`php/middle.php?endpoint=delete.php&id=${id}`, requestOptions)
+      .then(ifSuccessfulResponse);
+  };
 }
