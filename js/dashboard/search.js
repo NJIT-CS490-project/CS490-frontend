@@ -1,6 +1,7 @@
 {
   const Stream = window.lib.Stream;
   const time = window.lib.time;
+  const api = window.lib.api;
   const eventView = window.lib.views.event;
 
   const fromSearch = searchBar =>
@@ -10,16 +11,6 @@
     .debounce(500)
     .filter(x => x.length > 2);
 
-  const deleteEvent = event => {
-    const id = event.target.dataset.id;
-    const requestOptions = { credentials: 'same-origin', method: 'DELETE' };
-
-    return fetch(`php/middle.php?endpoint=delete.php&id=${id}`, requestOptions)
-      .then(response => (response.statusText !== 'OK') ? Promise.reject(response.statusText) : '')
-      .then(() => alert('Event successfully deleted!'))
-      .catch(error => console.error(error));
-  };
-
   const retrieveSelf = () =>
     fetch('php/middle.php?endpoint=self.php', { credentials: 'same-origin' })
     .then(response => (response.statusText === 'OK')
@@ -27,8 +18,13 @@
       : Promise.reject(response.statusText))
     .then(response => response.json());
 
+  const deleteHandler = event =>
+    api.deleteEvent(event.target.dataset.id)
+       .then(() => alert('Event successfully deleted'))
+       .catch(() => alert('Could not delete event'));
 
   const searchBar = document.getElementById('search');
+
   fromSearch(searchBar)
     .subscribe(search => {
       const requestOptions = { credentials: 'same-origin' };
@@ -57,7 +53,7 @@
         })
         .then(main => {
           const buttons = Array.from(main.querySelectorAll('[value="Delete"]'));
-          buttons.forEach(button => button.addEventListener('click', deleteEvent));
+          buttons.forEach(button => button.addEventListener('click', deleteHandler));
         })
         .catch(error => console.error(error));
     });
