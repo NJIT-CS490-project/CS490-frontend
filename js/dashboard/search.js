@@ -11,13 +11,6 @@
     .debounce(500)
     .filter(x => x.length > 2);
 
-  const retrieveSelf = () =>
-    fetch('php/middle.php?endpoint=self.php', { credentials: 'same-origin' })
-    .then(response => (response.statusText === 'OK')
-      ? response
-      : Promise.reject(response.statusText))
-    .then(response => response.json());
-
   const deleteHandler = event =>
     api.deleteEvent(event.target.dataset.id)
        .then(() => alert('Event successfully deleted'))
@@ -42,10 +35,10 @@
         .then(json => (json.message === 'Events found')
           ? json.events
           : Promise.reject(json.message))
-        .then(events => {
-          retrieveSelf()
-            .then(self => events.map(event => eventView(event, self.id, self.admin)));
-        })
+        .then(events =>
+          api.getSelf()
+            .then(self => events.map(event => eventView(event, self.id, self.admin)))
+            .catch(console.error))
         .then(newInnerHTML => {
           const main = document.getElementsByClassName('main')[0];
           main.innerHTML = newInnerHTML;
