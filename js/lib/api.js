@@ -13,7 +13,7 @@
   const objectToParams = object =>
     '&' + Object
       .keys(object)
-      .filter(key => object[key] !== '')
+      .filter(key => object[key] !== '' && object[key] !== undefined)
       .map(key => `${key}=${encodeURIComponent(object[key])}`)
       .join('&');
 
