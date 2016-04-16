@@ -6,18 +6,18 @@
     this.value = defaultValue || undefined;
   }
 
-  Stream.fromEvent = (EventTarget, eventName) => {
-    const stream = new Stream();
+  Stream.fromEvent = (EventTarget, eventName, defaultValue) => {
+    const stream = new Stream(defaultValue);
     EventTarget.addEventListener(eventName, event => stream.pulse(event));
     return stream;
   };
 
-  Stream.fromInput = eventTarget => Stream
-  .fromEvent(eventTarget, 'input')
+  Stream.fromInput = (eventTarget, defaultValue) => Stream
+  .fromEvent(eventTarget, 'input', defaultValue)
   .map(event => event.target.value);
 
-  Stream.fromSelect = eventTarget => Stream
-  .fromEvent(eventTarget, 'change')
+  Stream.fromSelect = (eventTarget, defaultValue) => Stream
+  .fromEvent(eventTarget, 'change', defaultValue)
   .map(event => event.target.value);
 
   Stream.poll = (func, rate) => {
