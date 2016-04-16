@@ -4,6 +4,7 @@
   --njit-color: #b20000;
   --warning-color: #fa4e32;
   --favorite-color: #fbf121;
+  --unfavorite-color: #fffa91;
   --shadow-color: rgba(0, 0, 0, .2);
   --disabled-color: #ddd;
 }
@@ -26,6 +27,10 @@
 
 .favorite-bg-color {
   background-color: var(--favorite-color);
+}
+
+.unfavorite-bg-color{
+  background-color: var(--unfavorite-color);
 }
 
 .primary-color {
