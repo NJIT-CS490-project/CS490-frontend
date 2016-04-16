@@ -20,6 +20,11 @@
   .fromEvent(eventTarget, 'change', defaultValue)
   .map(event => event.target.value);
 
+  Stream.fromCheckbox = (eventTarget, defaultValue) =>
+    Stream
+      .fromEvent(eventTarget, 'click', defaultValue)
+      .map(event => event.target.checked);
+
   Stream.poll = (func, rate) => {
     const stream = new Stream();
     window.setInterval(() => stream.pulse(func()), rate);
