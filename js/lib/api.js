@@ -40,4 +40,15 @@
     fetch('php/middle.php?endpoint=self.php', { credentials: 'same-origin' })
     .then(ifSuccessfulResponse)
     .then(snagJSON);
+
+  exports.getSearch = options => {
+    options.offset = 0;
+    options.count = 100;
+
+    const requestOptions = { credentials: 'same-origin', method: 'GET' };
+    const paramString = objectToParams(options);
+    fetch(`php/middle.php?endpoint=search.php${paramString}`, requestOptions)
+      .then(ifSuccessfulResponse)
+      .then(snagJSON);
+  };
 }
