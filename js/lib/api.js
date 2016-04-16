@@ -11,7 +11,7 @@
   const snagJSON = response => response.json();
 
   const objectToParams = object =>
-    '?' + Object
+    '&' + Object
       .keys(object)
       .filter(key => object[key] !== '')
       .map(key => `${key}=${encodeURIComponent(object[key])}`)
