@@ -10,6 +10,12 @@
 
   const snagJSON = response => response.json();
 
+  const objectToParams = object =>
+    '?' + Object
+      .keys(object)
+      .filter(key => object[key] !== '')
+      .map(key => `${key}=${encodeURIComponent(object[key])}`)
+      .join('&');
 
   const exports = window.lib.api;
 
