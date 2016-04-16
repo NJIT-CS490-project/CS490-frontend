@@ -79,7 +79,7 @@
     .log('filter object');
 
 
-  fromSearch(searchBar)
+  fromSearch(elements.search)
     .subscribe(search => {
       const requestOptions = { credentials: 'same-origin' };
       const string = encodeURIComponent(search);
