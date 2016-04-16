@@ -1,7 +1,9 @@
 {
   const Stream = window.lib.Stream;
+  const f = window.lib.f;
   const time = window.lib.time;
   const api = window.lib.api;
+  const validate = window.lib.validate;
   const eventView = window.lib.views.event;
 
   const fromSearch = searchBar =>
@@ -16,7 +18,66 @@
        .then(() => alert('Event successfully deleted'))
        .catch(() => alert('Could not delete event'));
 
-  const searchBar = document.getElementById('search');
+
+  const elements = {
+    order: document.getElementById('order'),
+    sorting: document.getElementById('sorting'),
+    search: document.getElementById('search'),
+    startDate: document.getElementById('startDate'),
+    endDate: document.getElementById('endDate'),
+    startTime: document.getElementById('startTime'),
+    endTime: document.getElementById('endTime'),
+    room: document.getElementById('room'),
+    favorited: document.getElementById('favorited'),
+    onlyNJIT: document.getElementById('onlyNJIT'),
+    onlyUser: document.getElementById('onlyUser'),
+    mine: document.getElementById('mine'),
+  };
+
+
+  fromSearch(elements.search)
+    .map(search => ({ search }))
+    .merge(Stream
+           .fromSelect(elements.order)
+           .map(order => ({ order })))
+    .merge(Stream
+           .fromSelect(elements.sorting)
+           .map(sorting => ({ sorting })))
+    .merge(Stream
+           .fromInput(elements.startDate)
+           .filter(date => date === '' || validate.date(date))
+           .map(startDate => ({ startDate })))
+    .merge(Stream
+           .fromInput(elements.endDate)
+           .filter(date => date === '' || validate.date(date))
+           .map(endDate => ({ endDate })))
+    .merge(Stream
+           .fromInput(elements.startTime)
+           .filter(date => date === '' || validate.time(date))
+           .map(startDate => ({ startTime })))
+    .merge(Stream
+           .fromInput(elements.endTime)
+           .filter(date => date === '' || validate.time(date))
+           .map(endDate => ({ endTime })))
+    .merge(Stream
+           .fromInput(elements.room)
+           .debounce(250)
+           .map(room => ({ room })))
+    .merge(Stream
+           .fromCheckbox(elements.favorited)
+           .map(favorited => ({ favorited })))
+    .merge(Stream
+           .fromCheckbox(elements.onlyNJIT)
+           .map(onlyNJIT => ({ onlyNJIT })))
+    .merge(Stream
+           .fromCheckbox(elements.onlyUser)
+           .map(onlyUser => ({ onlyUser })))
+    .merge(Stream
+           .fromCheckbox(elements.mine)
+           .map(mine => ({ mine })))
+    .reduce({}, f.assign)
+    .log('filter object');
+
 
   fromSearch(searchBar)
     .subscribe(search => {
