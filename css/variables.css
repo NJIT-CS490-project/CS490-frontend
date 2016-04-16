@@ -1,6 +1,7 @@
 :root {
   --primary-color: #00d2ff;
   --secondary-color: white;
+  --njit-color: #b20000;
   --warning-color: #fa4e32;
   --shadow-color: rgba(0, 0, 0, .2);
   --disabled-color: #ddd;
@@ -16,6 +17,10 @@
 
 .warning-bg-color {
   background-color: var(--warning-color);
+}
+
+.njit-bg-color {
+  background-color: var(--njit-color);
 }
 
 .primary-color {
