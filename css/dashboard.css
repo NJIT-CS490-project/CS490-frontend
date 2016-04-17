@@ -130,30 +130,56 @@
   height: calc(100% - var(--navbar-height));
 }
 
+
 .event {
   --vertical-margin: 2ex;
 
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  align-content: space-around;
-
-  text-align: right;
 
   width: 450px;
-  height: 200px;
   border: 1px solid var(--primary-color);
+
   box-shadow: 0 0 10px var(--primary-color);
   margin-top: var(--vertical-margin);
   margin-bottom: var(--vertical-margin);
+  background-color: var(--lighter-primary-color);
 }
 
-.event h1 {
+.event .header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   margin: 0;
-  padding: 0;
+  padding: 1ex;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
+
+.event .location {
+  font-size: small;
+  font-weight: bold;
+  color: #555;
+}
+
+.event .header * {
+  margin: 0;
+}
+
+.event section {
+  padding: 1ex;
+}
+
+.event .buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.event .buttons * {
+  margin: 0 1ex;
+}
+
 
 .select {
   width: 100%;
