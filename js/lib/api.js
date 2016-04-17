@@ -50,7 +50,11 @@
     const paramString = objectToParams(options);
     return fetch(`php/middle.php?endpoint=search.php${paramString}`, requestOptions)
       .then(ifSuccessfulResponse)
-      .then(snagJSON);
+      .then(snagJSON)
+      .then(json => {
+        if (json.meesage === 'Events found') return json;
+        return Promise.reject(json.message);
+      });
   };
 
   exports.postEvent = body => {
