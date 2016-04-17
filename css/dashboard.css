@@ -98,7 +98,7 @@
   padding: 2ex;
 
   z-index: 9999;
-  width: 50%;
+  width: 70%;
   height: 50%;
 
   box-shadow: 0 0 10px 1000px var(--shadow-color);
@@ -106,6 +106,34 @@
   border-radius: 20px;
 
   overflow-y: auto;
+}
+
+.recommended {
+  text-align: center;
+  flex-grow: 2;
+  overflow-y: auto;
+}
+
+.recommended section {
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.recommended-event {
+  text-align: left;
+  padding: .5ex;
+  border: 1px solid var(--secondary-color);
+}
+
+.recommended-event h4 {
+  margin: 1ex 0;
+  text-decoration: underline;
+}
+
+.recommended-event p {
+  font-size: small;
+  font-weight: bold;
+  margin: 0;
 }
 
 .form-button {
