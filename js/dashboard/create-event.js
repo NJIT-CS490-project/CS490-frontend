@@ -54,6 +54,7 @@
     endTime: Stream.fromInput(document.getElementById('create-end')),
     room: Stream.fromInput(document.getElementById('create-room')),
     building: Stream.fromSelect(document.getElementById('create-building')),
+    description: Stream.fromInput(document.getElementById('create-description')),
   };
 
   fieldsFilled(requiredFields)
@@ -78,6 +79,7 @@
           endTime: properties.endTime.get() || '',
           room: properties.room.get() || '',
           building: properties.building.get() || '',
+          description: properties.description.get() || '',
         }),
         credentials: 'same-origin',
       };
