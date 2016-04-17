@@ -2,11 +2,13 @@
   const getBuildings = window.lib.api.getBuildings;
   const optionListView = window.lib.views.optionList;
 
-  const dropdown = document.getElementById('create-building');
+  const createDropdown = document.getElementById('create-building');
+  const filterDropdown = document.getElementById('building');
 
   getBuildings()
     .then(optionListView)
     .then(htmlList => {
-      dropdown.innerHTML += htmlList;
+      createDropdown.innerHTML += htmlList;
+      filterDropdown.innerHTML += htmlList;
     });
 }
