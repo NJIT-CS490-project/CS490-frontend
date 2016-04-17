@@ -53,11 +53,11 @@
     .merge(Stream
            .fromInput(elements.startTime)
            .filter(date => date === '' || validate.time(date))
-           .map(startDate => ({ startTime })))
+           .map(startTime => ({ startTime })))
     .merge(Stream
            .fromInput(elements.endTime)
            .filter(date => date === '' || validate.time(date))
-           .map(endDate => ({ endTime })))
+           .map(endTime => ({ endTime })))
     .merge(Stream
            .fromInput(elements.room)
            .debounce(250)
