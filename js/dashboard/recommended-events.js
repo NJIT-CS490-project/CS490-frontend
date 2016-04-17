@@ -30,7 +30,6 @@
            .skipDuplicates()
            .map(endTime => ({ endTime })))
     .reduce({}, f.assign)
-    .log('thing')
     .subscribe(filterObject => {
       api.getSearch(filterObject)
          .then(json => json.events)
