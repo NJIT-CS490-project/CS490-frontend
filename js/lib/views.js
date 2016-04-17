@@ -17,12 +17,12 @@
     const description = model.description || '';
 
     const deleteButtonHTML = !model.isNJIT && (requesterID === ownerID) || isAdmin
-                             ? `<input data-id="${id}" type="button" value="Del" class="button secondary-color warning-bg-color"></input>`
+                             ? `<input data-id="${id}" type="button" value="Del" class="button delete-button secondary-color warning-bg-color"></input>`
                              : '';
 
     const favoriteButtonHTML = (model.isFavorite)
-                               ? `<input data-id="${id}" type="button" value="Fav" class="button secondary-color favorite-bg-color"></input>`
-                               : `<input data-id="${id}" type="button" value="Fav" class="button favorite-color secondary-bg-color"></input>`
+                               ? `<input data-id="${id}" type="button" value="Fav" class="button favorited-button secondary-color favorite-bg-color"></input>`
+                               : `<input data-id="${id}" type="button" value="Fav" class="button not-favorited-button favorite-color secondary-bg-color"></input>`
 
     const sourceButtonHTML = (model.isNJIT)
                              ? `<input data-id="${id}" type="button" value="Njit" class="button secondary-color njit-bg-color"></input>`
