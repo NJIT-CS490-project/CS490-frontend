@@ -27,6 +27,7 @@
     startTime: document.getElementById('startTime'),
     endTime: document.getElementById('endTime'),
     room: document.getElementById('room'),
+    building: document.getElementById('building'),
     favorited: document.getElementById('favorited'),
     onlyNJIT: document.getElementById('onlyNJIT'),
     onlyUser: document.getElementById('onlyUser'),
@@ -62,6 +63,9 @@
            .fromInput(elements.room)
            .debounce(250)
            .map(room => ({ room })))
+    .merge(Stream
+           .fromInput(elements.building)
+           .map(building => ({ building })))
     .merge(Stream
            .fromCheckbox(elements.favorited)
            .map(favorited => ({ favorited })))
