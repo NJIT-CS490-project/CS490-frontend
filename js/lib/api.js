@@ -52,4 +52,20 @@
       .then(ifSuccessfulResponse)
       .then(snagJSON);
   };
+
+  exports.postEvent = body => {
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify(body || {}),
+      credentials: 'same-origin',
+    };
+
+    return fetch('php/middle.php?endpoint=create.php', requestOptions)
+      .then(ifSuccessfulResponse)
+      .then(snagJSON)
+      .then(json => {
+        if (json.message === 'Event successfully created') return json;
+        return Promise.reject(json.message);
+      });
+  };
 }
