@@ -47,7 +47,7 @@
 
     const requestOptions = { credentials: 'same-origin', method: 'GET' };
     const paramString = objectToParams(options);
-    fetch(`php/middle.php?endpoint=search.php${paramString}`, requestOptions)
+    return fetch(`php/middle.php?endpoint=search.php${paramString}`, requestOptions)
       .then(ifSuccessfulResponse)
       .then(snagJSON);
   };
