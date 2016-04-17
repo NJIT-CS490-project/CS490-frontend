@@ -8,27 +8,43 @@
   exports.event = (model, requesterID, isAdmin) => {
     const title = model.name || '';
     const date = model.date || '';
-    const startTime = model.start || '';
-    const endTime = model.end || '';
-    const location = model.location || '';
+    const startTime = model.startTime || '';
+    const endTime = model.endTime || '';
     const id = model.id;
     const ownerID = model.ownerID;
+    const building = model.building || '';
+    const room = model.room || '';
+    const description = model.description || '';
 
-    const deleteButtonHTML = ((requesterID === ownerID) || isAdmin)
-                             ? `<input data-id="${id}" type="button" value="Delete" class="button secondary-color warning-bg-color"></input>`
+    const deleteButtonHTML = !model.isNJIT && (requesterID === ownerID) || isAdmin
+                             ? `<input data-id="${id}" type="button" value="Del" class="button secondary-color warning-bg-color"></input>`
                              : '';
+
+    const favoriteButtonHTML = (model.isFavorite)
+                               ? `<input data-id="${id}" type="button" value="Fav" class="button secondary-color favorite-bg-color"></input>`
+                               : `<input data-id="${id}" type="button" value="Fav" class="button favorite-color secondary-bg-color"></input>`
+
+    const sourceButtonHTML = (model.isNJIT)
+                             ? `<input data-id="${id}" type="button" value="Njit" class="button secondary-color njit-bg-color"></input>`
+                             : `<input data-id="${id}" type="button" value="Usr" class="button secondary-color primary-bg-color"></input>`
 
     return `
       <article class="event">
-        <img src="images/event.png"></img>
-        <section>
-          <h1>${title}</h1>
-          <p>${date}</p>
-          <p>${startTime} to ${endTime}</p>
-          <p>${location}</p>
-          ${deleteButtonHTML}
+        <section class="header">
+          <h3>${title}</h3>
+          <h5>${date}</h5>
+          <h5>${startTime} to ${endTime}</h5>
         </section>
+          <section>
+            <p class="location">${building}, Room ${room}</p>
+            <p>${description}</p>
+            <section class="buttons">
+            ${deleteButtonHTML}
+            ${favoriteButtonHTML}
+            ${sourceButtonHTML}
+            </section>
+          </section>
       </article>
-    `;
+    `
   };
 }
