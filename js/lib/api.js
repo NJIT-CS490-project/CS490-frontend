@@ -68,4 +68,24 @@
         return Promise.reject(json.message);
       });
   };
+
+  exports.postLogin = body => {
+    const requestOptions = {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: JSON.stringify(body || {}),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+    return fetch('php/middle.php?endpoint=login.php', requestOptions)
+      .then(ifSuccessfulResponse)
+      .then(snagJSON)
+      .then(json => {
+        if (json.message === 'Valid login') return json;
+        return Promise.reject(json.message);
+      });
+  };
 }
