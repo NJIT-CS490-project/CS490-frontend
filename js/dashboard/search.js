@@ -22,6 +22,11 @@
        .then(() => alert('Event favorited!'))
        .catch(() => alert('Could not favorite event'));
 
+  const unfavoriteHandler = event =>
+    api.postUnfavorite(event.target.dataset.id)
+       .then(() => alert('Event unfavorited!'))
+       .catch(() => alert('Could not unfavorite event'));
+
 
   const elements = {
     order: document.getElementById('order'),
