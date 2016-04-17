@@ -64,7 +64,7 @@
            .debounce(250)
            .map(room => ({ room })))
     .merge(Stream
-           .fromInput(elements.building)
+           .fromSelect(elements.building)
            .map(building => ({ building })))
     .merge(Stream
            .fromCheckbox(elements.favorited)
