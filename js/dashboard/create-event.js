@@ -1,5 +1,6 @@
 {
   const Stream = window.lib.Stream;
+  const api = window.lib.api;
   const time = window.lib.time;
   const validate = window.lib.validate;
 
@@ -70,32 +71,18 @@
   Stream
     .fromEvent(buttons.submit, 'click')
     .subscribe(() => {
-      const requestOptions = {
-        method: 'POST',
-        body: JSON.stringify({
-          title: properties.title.get() || '',
-          date: properties.date.get() || '',
-          startTime: properties.startTime.get() || '',
-          endTime: properties.endTime.get() || '',
-          room: properties.room.get() || '',
-          building: properties.building.get() || '',
-          description: properties.description.get() || '',
-        }),
-        credentials: 'same-origin',
+      const body = {
+        title: properties.title.get() || '',
+        date: properties.date.get() || '',
+        startTime: properties.startTime.get() || '',
+        endTime: properties.endTime.get() || '',
+        room: properties.room.get() || '',
+        building: properties.building.get() || '',
+        description: properties.description.get() || '',
       };
 
-      const parallels = [
-        fetch('php/middle.php?endpoint=create.php', requestOptions),
-        time.timeout(5000, 'Event creation request timed out'),
-      ];
-
-      Promise.race(parallels)
-        .then(response => (response.statusText === 'OK')
-          ? response.json()
-          : Promise.reject(response.statusText))
-        .then(json => (json.message === 'Valid login')
-          ? Promise.resolve()
-          : Promise.reject(json.message))
+      api.postEvent(body)
+        .then(json => alert(json.message))
         .then(() => hideModalForm(formContainer, newEventForm, buttons.submit))
         .catch(error => alert(error));
     });
