@@ -15,7 +15,8 @@
   const loginForm = document.getElementById('login');
   const usernameInput = loginForm.querySelector('[type="text"]');
   const passwordInput = loginForm.querySelector('[type="password"]');
-  const loginButton = loginForm.querySelector('[type="button"]');
+  const loginButton = loginForm.getElementById('login-button');
+  const guestButton = loginForm.getElementById('guest-button');
 
   allFieldsFilled([usernameInput, passwordInput])
   .subscribe(allFilled => {
