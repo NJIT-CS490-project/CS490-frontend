@@ -5,6 +5,22 @@
 
   exports.optionList = (list) => list.map(item => `<option>${item}</option>`).join('\n');
 
+  exports.recommendedEvent = model => {
+    const title = model.name || '';
+    const date = model.date || '';
+    const startTime = model.startTime || '';
+    const endTime = model.endTime || '';
+    const building = model.building || '';
+    const room = model.room || '';
+    return `
+    <article class="recommended-event primary-bg-color secondary-color">
+      <h4>${title}</h4>
+      <p>${date} ${startTime} to ${endTime}</p>
+      <p>${building} ${room}</p>
+    </article>
+    `;
+  };
+
   exports.event = (model, requesterID, isAdmin) => {
     const title = model.name || '';
     const date = model.date || '';
