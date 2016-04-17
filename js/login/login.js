@@ -1,6 +1,6 @@
 {
   const Stream = window.lib.Stream;
-  const time = window.lib.time;
+  const api = window.lib.api;
 
   const allFieldsFilled = inputElements => {
     const reducer = (previous, current) => previous.and(current);
@@ -15,54 +15,36 @@
   const loginForm = document.getElementById('login');
   const usernameInput = loginForm.querySelector('[type="text"]');
   const passwordInput = loginForm.querySelector('[type="password"]');
-  const loginButton = loginForm.getElementById('login-button');
-  const guestButton = loginForm.getElementById('guest-button');
+  const loginButton = document.getElementById('login-button');
+  const guestButton = document.getElementById('guest-button');
+
+  const usernameProperty = Stream.fromInput(usernameInput);
+  const passwordProperty = Stream.fromInput(passwordInput);
+
 
   allFieldsFilled([usernameInput, passwordInput])
   .subscribe(allFilled => {
     loginButton.disabled = !allFilled;
   });
 
-  const usernameProperty = Stream
-  .fromEvent(usernameInput, 'input')
-  .map(event => event.target.value);
-
-  const passwordProperty = Stream
-  .fromEvent(passwordInput, 'input')
-  .map(event => event.target.value);
-
   Stream
   .fromEvent(loginButton, 'click')
   .subscribe(() => {
-    const requestOptions = {
-      method: 'POST',
-      credentials: 'same-origin',
-      body: JSON.stringify({
-        username: usernameProperty.get(),
-        password: passwordProperty.get(),
-      }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+    const body = {
+      username: usernameProperty.get(),
+      password: passwordProperty.get(),
     };
-    const parallels = [
-      fetch('php/middle.php?endpoint=login.php', requestOptions),
-      time.timeout(5000, 'Login timed out'),
-    ];
 
-    Promise.race(parallels)
-    .then(response => {
-      if (response.statusText === 'OK') return response.json();
-      return Promise.reject(response.statusText);
-    })
-    .then(json => {
-      if (json.message === 'Valid login') return Promise.resolve();
-      return Promise.reject(json.message);
-    })
+    api.postLogin(body)
     .then(() => {
       window.location = 'dashboard.html';
     })
     .catch(error => alert(error));
+  });
+
+  Stream
+  .fromEvent(guestButton, 'click')
+  .subscribe(() => {
+    window.location = 'dashboard.html';
   });
 }
