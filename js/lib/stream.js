@@ -43,6 +43,14 @@
     return this;
   };
 
+  Stream.prototype.skipDuplicates = function skipDuplicates() {
+    const stream = new Stream(this.value);
+    this.subscribe(value => {
+      if (value !== stream.get()) stream.pulse(value);
+    });
+    return stream;
+  };
+
   Stream.prototype.map = function map(transform) {
     const stream = new Stream();
     this.subscribe(value => stream.pulse(transform(value)));
