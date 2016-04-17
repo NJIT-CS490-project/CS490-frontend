@@ -15,11 +15,17 @@
   };
 
   exports.assign = (base, extension) => {
+    const newObject = {};
+    Object.keys(base)
+    .forEach(key => {
+      newObject[key] = base[key];
+    });
+
     Object.keys(extension)
     .forEach(key => {
-      base[key] = extension[key];
+      newObject[key] = extension[key];
     });
-    return base;
+    return newObject;
   };
 
   exports.toKeys = (array, value) => {
