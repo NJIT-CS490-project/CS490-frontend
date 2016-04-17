@@ -17,6 +17,11 @@
        .then(() => alert('Event successfully deleted'))
        .catch(() => alert('Could not delete event'));
 
+  const favoriteHandler = event =>
+    api.postFavorite(event.target.dataset.id)
+       .then(() => alert('Event favorited!'))
+       .catch(() => alert('Could not favorite event'));
+
 
   const elements = {
     order: document.getElementById('order'),
