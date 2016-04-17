@@ -1,7 +1,6 @@
 {
   const Stream = window.lib.Stream;
   const f = window.lib.f;
-  const time = window.lib.time;
   const api = window.lib.api;
   const validate = window.lib.validate;
   const eventView = window.lib.views.event;
@@ -35,7 +34,7 @@
   };
 
 
-  fromSearch(elements.search)
+  const filterStream = fromSearch(elements.search)
     .map(search => ({ search }))
     .merge(Stream
            .fromSelect(elements.order)
@@ -79,23 +78,13 @@
     .log('filter object');
 
 
-  fromSearch(elements.search)
-    .subscribe(search => {
-      const requestOptions = { credentials: 'same-origin' };
-      const string = encodeURIComponent(search);
-      const count = 30;
-      const parallels = [
-        fetch(`php/middle.php?endpoint=search.php&string=${string}&count=${count}`, requestOptions),
-        time.timeout(5000, 'Search timed out.'),
-      ];
-
-      Promise.race(parallels)
-        .then(response => (response.statusText === 'OK')
-          ? response.json()
-          : Promise.reject(response.statusText))
-        .then(json => (json.message === 'Events found')
-          ? json.events
-          : Promise.reject(json.message))
+  filterStream
+    .subscribe(filterObject => {
+      api.getSearch(filterObject)
+        .then(json => {
+          if (json.message === 'Events found') return json.events;
+          return Promise.reject(json.message);
+        })
         .then(events =>
           api.getSelf()
             .then(self => events.map(event => eventView(event, self.id, self.admin)))
