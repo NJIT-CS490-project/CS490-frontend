@@ -96,21 +96,25 @@
     .subscribe(filterObject => {
       api.getSearch(filterObject)
         .then(json => {
-          if (json.message === 'Events found') return json.events;
-          return Promise.reject(json.message);
-        })
-        .then(events =>
-          api.getSelf()
+          const events = json.events;
+          return api.getSelf()
             .then(self => events.map(event => eventView(event, self.id, self.admin)))
-            .catch(console.error))
+            .catch(console.error);
+        })
         .then(newInnerHTML => {
           const main = document.getElementsByClassName('main')[0];
           main.innerHTML = newInnerHTML;
           return main;
         })
         .then(main => {
-          const buttons = Array.from(main.querySelectorAll('[value="Delete"]'));
-          buttons.forEach(button => button.addEventListener('click', deleteHandler));
+          const deleteButtons = Array.from(main.getElementsByClassName('delete-button'));
+          deleteButtons.forEach(button => button.addEventListener('click', deleteHandler));
+
+          const favoriteButtons = Array.from(main.getElementsByClassName('favorited-button'));
+          favoriteButtons.forEach(button => button.addEventListener('click', unfavoriteHandler));
+
+          const notFavoriteButtons = Array.from(main.getElementsByClassName('not-favorited-button'));
+          notFavoriteButtons.forEach(button => button.addEventListener('click', favoriteHandler));
         })
         .catch(error => console.error(error));
     });
