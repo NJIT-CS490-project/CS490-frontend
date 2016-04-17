@@ -52,7 +52,7 @@
       .then(ifSuccessfulResponse)
       .then(snagJSON)
       .then(json => {
-        if (json.meesage === 'Events found') return json;
+        if (json.message === 'Events found') return json;
         return Promise.reject(json.message);
       });
   };
