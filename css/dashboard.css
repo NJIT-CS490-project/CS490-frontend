@@ -38,6 +38,15 @@
   font-weight: bold;
 }
 
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 1ex;
+  border: 1px solid var(--primary-color);
+}
+
 .event-setting h4 {
   margin: 0;
   padding: 1ex;
