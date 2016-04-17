@@ -44,6 +44,10 @@
                              ? `<input data-id="${id}" type="button" value="Njit" class="button secondary-color njit-bg-color"></input>`
                              : `<input data-id="${id}" type="button" value="Usr" class="button secondary-color primary-bg-color"></input>`
 
+    const editButtonHTML = !model.isNJIT && (requesterID === ownerID) || isAdmin
+                             ? `<input data-id="${id}" type="button" value="Edit" class="button edit-button secondary-color primary-bg-color"></input>`
+                             : '';
+
     return `
       <article class="event">
         <section class="header">
@@ -58,9 +62,10 @@
             ${deleteButtonHTML}
             ${favoriteButtonHTML}
             ${sourceButtonHTML}
+            ${editButtonHTML}
             </section>
           </section>
       </article>
-    `
+    `;
   };
 }
