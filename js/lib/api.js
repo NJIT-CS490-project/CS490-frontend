@@ -42,6 +42,7 @@
     .then(snagJSON);
 
   exports.getSearch = options => {
+    options = options || {};
     options.offset = 0;
     options.count = 100;
 
