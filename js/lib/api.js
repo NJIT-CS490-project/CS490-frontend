@@ -36,6 +36,17 @@
       .then(ifSuccessfulResponse);
   };
 
+  exports.postFavorite = id => {
+    const requestOptions = {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({ eventID: id }),
+    };
+
+    return fetch('php/middle.php?endpoint=favorite.php', requestOptions)
+      .then(ifSuccessfulResponse);
+  };
+
   exports.getSelf = () =>
     fetch('php/middle.php?endpoint=self.php', { credentials: 'same-origin' })
     .then(ifSuccessfulResponse)
