@@ -1,6 +1,7 @@
 {
   const Stream = window.lib.Stream;
   const validate = window.lib.validate;
+  const api = window.lib.api;
 
 
   const hideModalForm = (container, form, submitButton) => {
@@ -52,5 +53,22 @@
     .merge(Stream.fromEvent(editEventForm, 'reset').map(() => false))
     .subscribe(allowSubmit => {
       buttons.submit.disabled = !allowSubmit;
+    });
+
+  Stream
+    .fromEvent(buttons.submit, 'click')
+    .subscribe(() => {
+      const body = {
+        date: properties.date.get() || '',
+        startTime: properties.startTime.get() || '',
+        endTime: properties.endTime.get() || '',
+        room: properties.room.get() || '',
+        building: properties.building.get() || '',
+        id: document.getElementById('edit-id').value,
+      };
+
+      api.putModify(body)
+        .then(() => hideModalForm(formContainer, editEventForm, buttons.submit))
+        .catch(error => alert(error));
     });
 }
