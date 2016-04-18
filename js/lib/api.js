@@ -114,4 +114,15 @@
         return Promise.reject(json.message);
       });
   };
+
+  exports.postModify = body => {
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify(body || {}),
+      credentials: 'same-origin',
+    };
+
+    return fetch('php/middle.php?endpoint=modify.php', requestOptions)
+      .then(ifSuccessfulResponse);
+  };
 }
