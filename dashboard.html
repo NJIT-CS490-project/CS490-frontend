@@ -134,6 +134,39 @@
       </section>
     </section>
 
+
+    <section id="modal-edit" class="hidden overlay primary-color secondary-bg-color edit-event">
+      <form>
+        <label for="edit-title">Title*</label>
+        <input class="input-text" id="edit-title" type="text" placeholder="Title" disabled></input>
+
+        <label for="edit-date">Date*</label>
+        <input class="input-text" id="edit-date" type="date" placeholder="YYYY-M-D" required></input>
+
+        <label for="edit-start">Start Time*</label>
+        <input class="input-text" id="edit-start" type="time" placeholder="HH:MM" required></input>
+
+        <label for="edit-end">End Time*</label>
+        <input class="input-text" id="edit-end" type="time" placeholder="HH:MM" required></input>
+
+        <label for="edit-building">Building*</label>
+        <select class="select secondary-bg-color" id="edit-building" name="edit-building" required>
+          <option disabled selected></option>
+        </select>
+
+        <label for="edit-room">Room*</label>
+        <input class="input-text" id="edit-room" type="text" placeholder="214" required></input>
+
+        <label for="edit-description">Description</label>
+        <textarea class="textarea" id="edit-description" placeholder="This event is going to be so cool!" disabled></textarea>
+
+        <div class="flex">
+          <input class="button form-button secondary-bg-color primary-color" type="button" id="edit-cancel" value="Cancel"></input>
+          <input autocomplete="off" class="button form-button primary-bg-color secondary-color" type="button" id="edit-submit" disabled='true' value="Submit"></input>
+        </div>
+      </form>
+    </section>
+
     <script type="text/javascript" src="js/dashboard/init-building-choices.js"></script>
     <script type="text/javascript" src="js/dashboard/search.js"></script>
     <script type="text/javascript" src="js/dashboard/logout.js"></script>

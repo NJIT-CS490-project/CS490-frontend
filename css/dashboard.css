@@ -136,6 +136,10 @@
   margin: 0;
 }
 
+.edit-event {
+  width: 40%;
+}
+
 .form-button {
   flex-grow: 1;
   padding: 2ex;
