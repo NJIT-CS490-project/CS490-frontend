@@ -145,6 +145,9 @@
 
           const notFavoriteButtons = Array.from(main.getElementsByClassName('not-favorited-button'));
           notFavoriteButtons.forEach(button => button.addEventListener('click', favoriteHandler));
+
+          const editButtons = Array.from(main.getElementsByClassName('edit-button'));
+          editButtons.forEach(button => button.addEventListener('click', editHandler));
         })
         .catch(error => console.error(error));
     });
