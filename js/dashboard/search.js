@@ -27,6 +27,36 @@
        .then(() => alert('Event unfavorited!'))
        .catch(() => alert('Could not unfavorite event'));
 
+  const editHandler = e => {
+    const id = e.target.dataset.id;
+    const modal = document.getElementById('modal-edit');
+    const elements = {
+      title: document.getElementById('edit-title'),
+      description: document.getElementById('edit-description'),
+      date: document.getElementById('edit-date'),
+      startTime: document.getElementById('edit-start'),
+      endTime: document.getElementById('edit-end'),
+      room: document.getElementById('edit-room'),
+      building: document.getElementById('edit-building'),
+      id: document.getElementById('edit-id'),
+    };
+
+    api.getSearch({ id })
+       .then(json => json.events[0])
+       .then(event => {
+         elements.title.value = event.title;
+         elements.description.value = event.description;
+         elements.date.value = event.date;
+         elements.startTime.value = event.startTime;
+         elements.endTime.value = event.endTime;
+         elements.room.value = event.room;
+         elements.building.value = event.building;
+         elements.id = id;
+         modal.classList.remove('hidden');
+       })
+       .catch(err => console.error(err));
+  };
+
 
   const elements = {
     order: document.getElementById('order'),
