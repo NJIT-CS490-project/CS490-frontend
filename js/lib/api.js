@@ -115,9 +115,9 @@
       });
   };
 
-  exports.postModify = body => {
+  exports.putModify = body => {
     const requestOptions = {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify(body || {}),
       credentials: 'same-origin',
     };
