@@ -4,11 +4,13 @@
 
   const createDropdown = document.getElementById('create-building');
   const filterDropdown = document.getElementById('building');
+  const editDropdown = document.getElementById('edit-building');
 
   getBuildings()
     .then(optionListView)
     .then(htmlList => {
       createDropdown.innerHTML += htmlList;
       filterDropdown.innerHTML += htmlList;
+      editDropdown.innerHTML += htmlList;
     });
 }
