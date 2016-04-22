@@ -53,7 +53,7 @@
                              ? `<input data-id="${id}" type="button" value="NJIT" class="button secondary-color njit-bg-color"></input>`
                              : `<input data-id="${id}" type="button" value="User" class="button secondary-color primary-bg-color"></input>`
 
-    const editButtonHTML = !model.fromNJIT && (requesterID === ownerID) || isAdmin
+    const editButtonHTML = (!model.fromNJIT) && ((requesterID === ownerID) || isAdmin)
                              ? `<input data-id="${id}" type="button" value="Edit" class="button edit-button secondary-color primary-bg-color"></input>`
                              : '';
 
