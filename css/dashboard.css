@@ -31,6 +31,7 @@
 }
 
 .input-text {
+  box-sizing: border-box;
   width: 100%;
   margin: 0;
   padding: .75ex;
@@ -104,13 +105,16 @@
   box-shadow: 0 0 10px 1000px var(--shadow-color);
 
   border-radius: 20px;
+}
 
+.overlay form {
+  flex-grow: 2;
   overflow-y: auto;
 }
 
 .recommended {
   text-align: center;
-  flex-grow: 2;
+  flex-grow: 3;
   overflow-y: auto;
 }
 
