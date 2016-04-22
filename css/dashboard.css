@@ -142,6 +142,7 @@
 
 .edit-event {
   width: 40%;
+  overflow-y: auto;
 }
 
 .form-button {
