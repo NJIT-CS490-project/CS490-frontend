@@ -74,8 +74,8 @@
       .then(ifSuccessfulResponse)
       .then(snagJSON)
       .then(json => {
-        if (json.message === 'Events found') return json;
-        return Promise.reject(json.message);
+        if (json.events.length !== 0) return json;
+        return Promise.reject('No events found');
       });
   };
 
