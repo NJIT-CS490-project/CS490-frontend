@@ -217,6 +217,9 @@
   margin: 0 1ex;
 }
 
+.event .button {
+  padding: .5ex 1ex;
+}
 
 .select {
   width: 100%;
