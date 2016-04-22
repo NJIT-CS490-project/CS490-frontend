@@ -14,7 +14,8 @@
 
   Stream.fromInput = (eventTarget, defaultValue) => Stream
   .fromEvent(eventTarget, 'input', defaultValue)
-  .map(event => event.target.value);
+  .map(event => event.target.value)
+  .merge(Stream.poll(() => eventTarget.value, 2000));
 
   Stream.fromSelect = (eventTarget, defaultValue) => Stream
   .fromEvent(eventTarget, 'change', defaultValue)
