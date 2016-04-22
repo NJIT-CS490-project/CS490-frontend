@@ -19,6 +19,18 @@
       .map(string => string.length > 0))
     .reduce((previousStream, currentStream) => previousStream.and(currentStream));
 
+  const pollField = inputElement => {
+    return Stream
+      .fromInput(inputElement)
+      .merge(Stream.poll(() => inputElement.value, 1000));
+  };
+
+  const pollSelect = selectElement => {
+    return Stream
+      .fromSelect(selectElement)
+      .merge(Stream.poll(() => selectElement.value, 1000));
+  }
+
 
   const buttons = {
     cancel: document.getElementById('edit-cancel'),
@@ -32,11 +44,11 @@
     .filter(element => element.required);
 
   const properties = {
-    date: Stream.fromInput(document.getElementById('edit-date')),
-    startTime: Stream.fromInput(document.getElementById('edit-start')),
-    endTime: Stream.fromInput(document.getElementById('edit-end')),
-    room: Stream.fromInput(document.getElementById('edit-room')),
-    building: Stream.fromSelect(document.getElementById('edit-building')),
+    date: pollField(document.getElementById('edit-date')),
+    startTime: pollField(document.getElementById('edit-start')),
+    endTime: pollField(document.getElementById('edit-end')),
+    room: pollField(document.getElementById('edit-room')),
+    building: pollSelect(document.getElementById('edit-building')),
   };
 
   Stream
