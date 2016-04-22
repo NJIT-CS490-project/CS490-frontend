@@ -40,7 +40,7 @@
     const requestOptions = {
       credentials: 'same-origin',
       method: 'POST',
-      body: JSON.stringify({ eventID: id }),
+      body: JSON.stringify({ id }),
     };
 
     return fetch('php/middle.php?endpoint=favorite.php', requestOptions)
