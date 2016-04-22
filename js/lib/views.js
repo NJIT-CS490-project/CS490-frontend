@@ -32,7 +32,7 @@
     const room = model.room || '';
     const description = model.description || '';
 
-    const deleteButtonHTML = !model.isNJIT && (requesterID === ownerID) || isAdmin
+    const deleteButtonHTML = !model.fromNJIT && (requesterID === ownerID) || isAdmin
                              ? `<input data-id="${id}" type="button" value="Del" class="button delete-button secondary-color warning-bg-color"></input>`
                              : '';
 
@@ -40,11 +40,11 @@
                                ? `<input data-id="${id}" type="button" value="Fav" class="button favorited-button secondary-color favorite-bg-color"></input>`
                                : `<input data-id="${id}" type="button" value="Fav" class="button not-favorited-button favorite-color secondary-bg-color"></input>`
 
-    const sourceButtonHTML = (model.isNJIT)
+    const sourceButtonHTML = (model.fromNJIT)
                              ? `<input data-id="${id}" type="button" value="Njit" class="button secondary-color njit-bg-color"></input>`
                              : `<input data-id="${id}" type="button" value="Usr" class="button secondary-color primary-bg-color"></input>`
 
-    const editButtonHTML = !model.isNJIT && (requesterID === ownerID) || isAdmin
+    const editButtonHTML = !model.fromNJIT && (requesterID === ownerID) || isAdmin
                              ? `<input data-id="${id}" type="button" value="Edit" class="button edit-button secondary-color primary-bg-color"></input>`
                              : '';
 
