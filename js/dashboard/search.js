@@ -133,7 +133,7 @@
         })
         .then(newInnerHTML => {
           const main = document.getElementsByClassName('main')[0];
-          main.innerHTML = newInnerHTML;
+          main.innerHTML = newInnerHTML.join('\n');
           return main;
         })
         .then(main => {
