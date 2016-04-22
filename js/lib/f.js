@@ -43,4 +43,13 @@
     }
     return array;
   };
+
+  exports.parentQuery = (element, predicate) => {
+    let current = element;
+    while (current !== document) {
+      if (predicate(current)) return current;
+      current = current.parentNode;
+    }
+    return undefined;
+  };
 }
