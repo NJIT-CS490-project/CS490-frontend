@@ -9,6 +9,7 @@
   getBuildings()
     .then(optionListView)
     .then(htmlList => {
+      const sortedList = htmlList.sort();
       createDropdown.innerHTML += htmlList;
       filterDropdown.innerHTML += htmlList;
       editDropdown.innerHTML += htmlList;
