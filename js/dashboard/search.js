@@ -15,7 +15,8 @@
     api.deleteEvent(event.target.dataset.id)
        .then(() => alert('Event successfully deleted'))
        .then(() => {
-         event.target.parentNode.removeChild(event.target);
+         const parent = f.parentQuery(event.target, element => element.classList.contains('event'));
+         parent.parentNode.removeChild(parent);
        })
        .catch(() => alert('Could not delete event'));
 
