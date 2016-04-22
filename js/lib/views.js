@@ -22,6 +22,12 @@
   };
 
   exports.event = (model, requesterID, isAdmin) => {
+    const favoriteButtonView = (isFavorite, requesterID) => {
+      if (requesterID === undefined) return '';
+      if (isFavorite) return `<input data-id="${id}" type="button" value="Fav" class="button favorited-button secondary-color favorite-bg-color"></input>`;
+      else return `<input data-id="${id}" type="button" value="Fav" class="button not-favorited-button favorite-color secondary-bg-color"></input>`;
+    };
+
     const title = model.name || '';
     const date = model.date || '';
     const startTime = model.startTime || '';
@@ -36,9 +42,7 @@
                              ? `<input data-id="${id}" type="button" value="Del" class="button delete-button secondary-color warning-bg-color"></input>`
                              : '';
 
-    const favoriteButtonHTML = (requesterID !== undefined && model.isFavorite)
-                               ? `<input data-id="${id}" type="button" value="Fav" class="button favorited-button secondary-color favorite-bg-color"></input>`
-                               : `<input data-id="${id}" type="button" value="Fav" class="button not-favorited-button favorite-color secondary-bg-color"></input>`
+    const favoriteButtonHTML = favoriteButtonView(model.isFavorite, requesterID);
 
     const sourceButtonHTML = (model.fromNJIT)
                              ? `<input data-id="${id}" type="button" value="Njit" class="button secondary-color njit-bg-color"></input>`
