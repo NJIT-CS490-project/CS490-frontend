@@ -6,7 +6,9 @@
   const fieldsMatch = fields => {
     const combiner = (a, b) => a === b;
     return fields
-    .map(field => Stream.fromInput(field, 'input'))
+    .map(field => Stream
+         .fromInput(field, 'input')
+         .merge(Stream.poll(() => field.value, 1000)))
     .reduce((previous, current) => previous.combine(current, combiner));
   };
 
@@ -14,7 +16,9 @@
     const reducer = (a, b) => a && b;
 
     return fields
-    .map(field => Stream.fromInput(field, 'input'))
+    .map(field => Stream
+         .fromInput(field, 'input')
+         .merge(Stream.poll(() => field.value, 1000)))
     .map(textStream => textStream.map(text => text.length > 0))
     .reduce(reducer);
   };
@@ -45,9 +49,14 @@
     registerButton.disabled = !shouldEnable;
   });
 
-  const usernameProperty = Stream.fromInput(usernameInput);
+  const usernameProperty = Stream
+    .fromInput(usernameInput)
+    .merge(Stream.poll(() => usernameInput.value, 1000));
 
-  const passwordProperty = Stream.fromInput(passwordInput)
+  const passwordProperty = Stream
+    .fromInput(passwordInput)
+    .merge(Stream.poll(() => passwordInput.value, 1000));
+
 
   Stream
   .fromEvent(registerButton, 'click')
@@ -71,6 +80,11 @@
     .then(parseResponseJSON)
     .then(ifAccountCreated)
     .then(() => alert('Account successfully created!'))
+    .then(() => {
+      usernameInput.value = '';
+      passwordInput.value = '';
+      confirmPasswordInput.value = '';
+    })
     .catch(error => alert(error));
   });
 }
