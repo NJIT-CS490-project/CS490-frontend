@@ -44,7 +44,7 @@
 
     const favoriteButtonHTML = favoriteButtonView(model.favorite == 1, requesterID);
 
-    const sourceButtonHTML = (model.fromNJIT)
+    const sourceButtonHTML = (model.fromNJIT == 1)
                              ? `<input data-id="${id}" type="button" value="Njit" class="button secondary-color njit-bg-color"></input>`
                              : `<input data-id="${id}" type="button" value="Usr" class="button secondary-color primary-bg-color"></input>`
 
