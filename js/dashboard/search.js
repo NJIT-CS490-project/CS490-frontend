@@ -68,7 +68,7 @@
          elements.endTime.value = event.endTime;
          elements.room.value = event.room;
          elements.building.value = event.building;
-         elements.id = id;
+         elements.id.value = id;
          modal.classList.remove('hidden');
        })
        .catch(err => console.error(err));
