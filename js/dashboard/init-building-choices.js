@@ -7,9 +7,9 @@
   const editDropdown = document.getElementById('edit-building');
 
   getBuildings()
+    .then(buildings => buildings.sort())
     .then(optionListView)
     .then(htmlList => {
-      const sortedList = htmlList.sort();
       createDropdown.innerHTML += htmlList;
       filterDropdown.innerHTML += htmlList;
       editDropdown.innerHTML += htmlList;
