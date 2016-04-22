@@ -43,7 +43,7 @@
     const room = roomView(model.room);
     const description = model.description || '';
 
-    const deleteButtonHTML = !model.fromNJIT && (requesterID === ownerID) || isAdmin
+    const deleteButtonHTML = (!model.fromNJIT) && ((requesterID === ownerID) || isAdmin)
                              ? `<input data-id="${id}" type="button" value="Del" class="button delete-button secondary-color warning-bg-color"></input>`
                              : '';
 
