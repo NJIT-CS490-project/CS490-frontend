@@ -20,7 +20,7 @@
   inputPollStream(elements.date)
     .filter(validate.date)
     .skipDuplicates()
-    .map(date => ({ date }))
+    .map(date => ({ startDate: date, endDate: date }))
     .merge(inputPollStream(elements.startTime)
            .filter(validate.time)
            .skipDuplicates()
