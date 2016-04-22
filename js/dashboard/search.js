@@ -14,6 +14,7 @@
   const deleteHandler = event =>
     api.deleteEvent(event.target.dataset.id)
        .then(() => alert('Event successfully deleted'))
+       .then(() => event.target.innerHTML = '')
        .catch(() => alert('Could not delete event'));
 
   const favoriteHandler = event =>
