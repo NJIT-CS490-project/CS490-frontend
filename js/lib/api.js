@@ -72,11 +72,7 @@
     const paramString = objectToParams(options);
     return fetch(`php/middle.php?endpoint=search.php${paramString}`, requestOptions)
       .then(ifSuccessfulResponse)
-      .then(snagJSON)
-      .then(json => {
-        if (json.events.length !== 0) return json;
-        return Promise.reject('No events found');
-      });
+      .then(snagJSON);
   };
 
   exports.postEvent = body => {
