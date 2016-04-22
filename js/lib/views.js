@@ -42,7 +42,7 @@
                              ? `<input data-id="${id}" type="button" value="Del" class="button delete-button secondary-color warning-bg-color"></input>`
                              : '';
 
-    const favoriteButtonHTML = favoriteButtonView(model.isFavorite, requesterID);
+    const favoriteButtonHTML = favoriteButtonView(model.favorite, requesterID);
 
     const sourceButtonHTML = (model.fromNJIT)
                              ? `<input data-id="${id}" type="button" value="Njit" class="button secondary-color njit-bg-color"></input>`
