@@ -9,8 +9,7 @@
     Stream
     .fromEvent(searchBar, 'input')
     .map(event => event.target.value)
-    .debounce(500)
-    .filter(x => x.length > 2);
+    .debounce(500);
 
   const deleteHandler = event =>
     api.deleteEvent(event.target.dataset.id)
