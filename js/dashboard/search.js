@@ -19,11 +19,19 @@
   const favoriteHandler = event =>
     api.postFavorite(event.target.dataset.id)
        .then(() => alert('Event favorited!'))
+       .then(() => {
+         event.target.classList.remove('favorite-color', 'secondary-bg-color');
+         event.target.classList.add('secondary-color', 'favorite-bg-color');
+       })
        .catch(() => alert('Could not favorite event'));
 
   const unfavoriteHandler = event =>
     api.postUnfavorite(event.target.dataset.id)
        .then(() => alert('Event unfavorited!'))
+       .then(() => {
+         event.target.classList.remove('secondary-color', 'favorite-bg-color');
+         event.target.classList.add('favorite-color', 'secondary-bg-color');
+       })
        .catch(() => alert('Could not unfavorite event'));
 
   const editHandler = e => {
