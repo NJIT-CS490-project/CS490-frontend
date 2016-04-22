@@ -53,7 +53,7 @@
     api.getSearch({ id })
        .then(json => json.events[0])
        .then(event => {
-         elements.title.value = event.title;
+         elements.title.value = event.name;
          elements.description.value = event.description;
          elements.date.value = event.date;
          elements.startTime.value = event.startTime;
