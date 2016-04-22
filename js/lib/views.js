@@ -28,6 +28,11 @@
       else return `<input data-id="${id}" type="button" value="Fav ${numFavorites}" class="button not-favorited-button favorite-color secondary-bg-color"></input>`;
     };
 
+    const roomView = room => {
+      if (room) return `, Room ${room}`;
+      return '';
+    };
+
     const title = model.name || '';
     const date = model.date || '';
     const startTime = model.startTime || '';
@@ -35,7 +40,7 @@
     const id = model.id;
     const ownerID = model.ownerID;
     const building = model.building || '';
-    const room = model.room || '';
+    const room = roomView(model.room);
     const description = model.description || '';
 
     const deleteButtonHTML = !model.fromNJIT && (requesterID === ownerID) || isAdmin
@@ -60,7 +65,7 @@
           <h5>${startTime} to ${endTime}</h5>
         </section>
           <section>
-            <p class="location">${building}, Room ${room}</p>
+            <p class="location">${building}${room}</p>
             <p>${description}</p>
             <section class="buttons">
             ${deleteButtonHTML}
