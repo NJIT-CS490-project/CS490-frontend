@@ -19,6 +19,8 @@
   const favoriteHandler = event =>
     api.postFavorite(event.target.dataset.id)
        .then(() => {
+         event.target.removeEventListener('click', favoriteHandler);
+         event.target.addEventListener('click', unfavoriteHandler);
          event.target.classList.remove('favorite-color', 'secondary-bg-color');
          event.target.classList.add('secondary-color', 'favorite-bg-color');
          const oldValue = event.target.value.split(' ');
@@ -29,6 +31,8 @@
   const unfavoriteHandler = event =>
     api.postUnfavorite(event.target.dataset.id)
        .then(() => {
+         event.target.removeEventListener('click', unfavoriteHandler);
+         event.target.addEventListener('click', favoriteHandler);
          event.target.classList.remove('secondary-color', 'favorite-bg-color');
          event.target.classList.add('favorite-color', 'secondary-bg-color');
          const oldValue = event.target.value.split(' ');
