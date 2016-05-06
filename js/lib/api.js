@@ -113,7 +113,7 @@
 
   exports.putModify = body => {
     const requestOptions = {
-      method: 'PUT',
+      method: 'POST',
       body: JSON.stringify(body || {}),
       credentials: 'same-origin',
     };
